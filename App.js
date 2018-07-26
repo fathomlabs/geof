@@ -15,7 +15,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       fontLoaded: false,
-      under15: props.under15,
+      under15: ['yes', 'no'],
       pregnant: props.pregnant
     };
   }
