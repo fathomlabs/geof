@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, Picker, Switch, Button } from 'react-native';
 import { Constants, Font } from 'expo';
 import { Formik } from 'formik';
-import data from './assets/data';
+import data from './assets/datajs';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 // You can import from local files
@@ -11,13 +11,19 @@ import AssetExample from './components/AssetExample';
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-elements'; // Version can be specified in package.json
 
+// var data = require('./assets/data-tiny');
+console.log(data)
+// const lakes = [{label: 'ontario', value: 'o'}, {label: 'minneawkas',  value: 'm'}, {label: 'wannsee', value:'w'}];
+const lakes2 = Object.entries(data.wbs).map(value => value[1].en)
+
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       fontLoaded: false,
       under15: ['yes', 'no'],
-      pregnant: props.pregnant
+      pregnant: props.pregnant,
+      sp: null
     };
   }
 
@@ -49,7 +55,7 @@ export default class App extends Component {
             <Text style={styles.paragraph}>What kind of fish did you catch?</Text>
             <ModalDropdown 
             style={styles.paragraph}
-            options={['Atlanic Salmon', 'Aurora Trout', 'Bigmouth Buffalo', 'Black Crappie', 'Bluegill', 'Bowfin', 'Brook Trout', 'Brown Bullhead',
+            options={['Atlantic Salmon', 'Aurora Trout', 'Bigmouth Buffalo', 'Black Crappie', 'Bluegill', 'Bowfin', 'Brook Trout', 'Brown Bullhead',
             'Brown Trout', 'Channel Catfish', 'Chinook Salmon', 'Cisco(Lake Herring)', 'Coho Salmon', 'Common Carp', 'Freshwater Drum', 'Gizzard Shad',
             'Goldeye', 'Goldfish', 'Lake Trout', 'Lake Whitefish', 'Largemouth Bass', 'Ling (Burbot)', 'Longnose Gar', 'Longnose Sucker', 'Mooneye', 'Muskellunge',
             'Northern Pike', 'Pink Salmon', 'Pumpkinseed', 'Quillback Carpsucker', 'Rainbow Smelt', 'Rainbow Trout', 'Redhorse Sucker', 'Rock Bass', 'Round Whitefish',
@@ -59,13 +65,15 @@ export default class App extends Component {
             style={styles.paragraph}
             options={['15-20cm', '20-25cm', '25-30cm', '30-35cm', '35-40cm', '40-45cm', '45-50cm', '50-55cm', '55-60cm', '60-65cm', '65-70cm', '70-75cm', '75+ cm']}/>
             <Text style={styles.paragraph}>Where did you catch the fish?</Text>
-            <ModalDropdown 
-            style={styles.paragraph}
-            options={['option 1', 'option 2']}/>
             <Picker
               selectedValue={this.state.sp || null}
               style={styles.picker}
               onValueChange={(itemValue, itemIndex) => this.setState({ sp: itemValue })}>
+              {
+                lakes2.map(lake => {
+                  return <Picker.Item label={lake}  />
+                })
+              }
             </Picker>
             <Button onPress={handleSubmit} title="submit" color="#841584" />
             </View>
