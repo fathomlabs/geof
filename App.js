@@ -43,13 +43,13 @@ export default class App extends Component {
           onSubmit={values => console.log(values)}>
           {({ handleChange, handleSubmit, values }) => (
             <View>
-   {/*           <SearchBar
+              <SearchBar
                 ref={(ref) => this.searchBar = ref}
                 data={lakes2}
                 handleResults={this._handleResults}
                 showOnLoad
               />
-*/}
+
               <Text style={styles.paragraph}>Are you under 15?</Text>
               <Switch
                 onValueChange = {handleChange('under15')}
