@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   autocomplete: {
     justifyContent: 'flex-end',
     margin: 10,
-    padding: 4,
+    padding: 1,
     paddingBottom: 0,
     backgroundColor: 'white',
     borderWidth: 1,
@@ -193,13 +193,14 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   picker: {
-    margin: -39, 
+    margin: 0, 
     fontSize: 20,
   },
   pickerItem: {
     fontSize: 20,
     backgroundColor: 'white',
     color: '#34495e',
+    height: 70,
   },
   submit: {
     backgroundColor: 'skyblue',
