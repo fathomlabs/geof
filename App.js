@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, ScrollView, TextInput, Picker, Switch, Button, KeyboardAvoidingView } from 'react-native';
+import { Text, StyleSheet, ScrollView, TextInput, Picker, Switch, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Constants, Font } from 'expo';
 import data from './lib/datajs';
 
@@ -17,6 +17,27 @@ export default class App extends Component {
       lake: { value: '', selected: null },
       len: { value: '', selected: null }
     };
+  }
+  //Attempt at submit button function
+  submit() {
+  let submission={}
+  submission.sp=this.state.sp,
+  submission.lake=this.state.lake,
+  submission.len=this.state.len,
+  console.warn(submission);
+//eventual Api fetch??
+ /* var url = '';
+
+  fetch(url, {
+    method: 'POST', // or 'PUT'
+    body: JSON.stringify(submission), // data can be `string` or {object}!
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json())
+  .catch(error => console.error('Error:', error))
+  .then(response => console.log('Success:', response));
+  */
   }
 
   async componentDidMount() {
@@ -65,7 +86,7 @@ export default class App extends Component {
         <KeyboardAvoidingView style={styles.app} behavior="padding" enabled>
           <Text style={styles.title}>GEOF: Guide To Eating Ontario Fish</Text>
 
-          <Text style={styles.paragraph}>Are you under 15?</Text>
+          <Text style={styles.paragraph}>Are you under 15 years old?</Text>
 
           <Switch
             onValueChange = {this.handleChange('under15')}
@@ -93,14 +114,14 @@ export default class App extends Component {
             keyboardType='default'
             textContentType='none'
           />
+    
+          <Text style={styles.paragraph}>How big was the fish? </Text>
+          <Picker onValueChange={this.handleSelect('lens')} style={styles.picker}>
+             {data.lens.map(data => <Picker.Item key={"lens_" + data.index} label={data.value} value={data.id} />)}
+          </Picker> 
+      
 
-          <Text style={styles.paragraph}>How big was the fish?</Text>
-
-          <Picker onValueChange={this.handleSelect('len')} >
-            {data.lens.map(d => <Picker.Item label="{d.value}" value="${d.id}" />)}
-          </Picker>
-
-          <Text style={styles.paragraph}>Where did you catch the fish?</Text>
+          <Text style={styles.paragraph2}>Where did you catch the fish?</Text>
 
           <AutoComplete
             onSelect={this.handleSelect('lake')}
@@ -114,6 +135,10 @@ export default class App extends Component {
             keyboardType='default'
             textContentType='none'
           />
+          <TouchableOpacity
+          onPress={()=>this.submit()}>
+          <Text style={styles.submit}>Submit</Text>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
       </ScrollView>
     ) : null
@@ -122,7 +147,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   app: {
-    flex: 1,
+    flex: 10,
     alignItems: 'stretch',
     // justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
@@ -137,6 +162,14 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     margin: 10,
+    fontSize: 23,
+    fontFamily: 'lato-bold',
+    fontWeight: 'bold',
+    textAlign: 'left',
+    color: '#34495e',
+  },
+  paragraph2: {
+    margin: 12,
     fontSize: 23,
     fontFamily: 'lato-bold',
     fontWeight: 'bold',
@@ -158,5 +191,17 @@ const styles = StyleSheet.create({
     fontFamily: 'lato-regular',
     color: '#317dc3',
     padding: 14,
+  },
+  picker: {
+    margin: -39, 
+  },
+  submit: {
+    backgroundColor: 'skyblue',
+    margin: 20,
+    fontSize: 23,
+    fontFamily: 'lato-bold',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#34495e',
   },
 });
