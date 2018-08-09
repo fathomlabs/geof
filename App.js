@@ -93,14 +93,14 @@ export default class App extends Component {
             keyboardType='default'
             textContentType='none'
           />
+    
+          <Text style={styles.paragraph}>How big was the fish? </Text>
+          <Picker onValueChange={this.handleSelect('lens')} style={styles.picker}>
+             {data.lens.map(data => <Picker.Item key={"lens_" + data.index} label={data.value} value={data.id} />)}
+          </Picker> 
+      
 
-          <Text style={styles.paragraph}>How big was the fish?</Text>
-
-          <Picker onValueChange={this.handleSelect('len')} >
-            {data.lens.map(d => <Picker.Item label="{d.value}" value="${d.id}" />)}
-          </Picker>
-
-          <Text style={styles.paragraph}>Where did you catch the fish?</Text>
+          <Text style={styles.paragraph2}>Where did you catch the fish?</Text>
 
           <AutoComplete
             onSelect={this.handleSelect('lake')}
@@ -122,7 +122,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   app: {
-    flex: 1,
+    flex: 10,
     alignItems: 'stretch',
     // justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
@@ -137,6 +137,14 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     margin: 10,
+    fontSize: 23,
+    fontFamily: 'lato-bold',
+    fontWeight: 'bold',
+    textAlign: 'left',
+    color: '#34495e',
+  },
+  paragraph2: {
+    margin: 12,
     fontSize: 23,
     fontFamily: 'lato-bold',
     fontWeight: 'bold',
@@ -158,5 +166,9 @@ const styles = StyleSheet.create({
     fontFamily: 'lato-regular',
     color: '#317dc3',
     padding: 14,
+  },
+  picker: {
+    margin: -39,
+    
   },
 });
