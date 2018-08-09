@@ -114,14 +114,14 @@ export default class App extends Component {
             keyboardType='default'
             textContentType='none'
           />
-    
-          <Text style={styles.paragraph}>How big was the fish? </Text>
-          <Picker onValueChange={this.handleSelect('lens')} style={styles.picker}>
-             {data.lens.map(data => <Picker.Item key={"lens_" + data.index} label={data.value} value={data.id} />)}
-          </Picker> 
-      
 
-          <Text style={styles.paragraph2}>Where did you catch the fish?</Text>
+          <Text style={styles.paragraph}>How big was the fish? </Text>
+
+          <Picker onValueChange={this.handleSelect('lens')} style={styles.autocomplete} itemStyle={styles.pickerItem}>
+             {data.lens.map(data => <Picker.Item key={"lens_" + data.index} label={data.value} value={data.id} />)}
+          </Picker>
+
+          <Text style={styles.paragraph}>Where did you catch the fish?</Text>
 
           <AutoComplete
             onSelect={this.handleSelect('lake')}
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   title: {
     margin: 5,
     fontSize: 40,
-    //fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontFamily: 'rubik-bold',
     textAlign: 'center',
   },
@@ -194,6 +194,12 @@ const styles = StyleSheet.create({
   },
   picker: {
     margin: -39, 
+    fontSize: 20,
+  },
+  pickerItem: {
+    fontSize: 20,
+    backgroundColor: 'white',
+    color: '#34495e',
   },
   submit: {
     backgroundColor: 'skyblue',
