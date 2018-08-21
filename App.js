@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, ScrollView, View, TextInput, Picker, Switch, Button, KeyboardAvoidingView } from 'react-native';
+import { Text, StyleSheet, ScrollView, View, TextInput, Picker, Switch, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Constants, Font } from 'expo';
 import data from './lib/datajs';
 
 import AutoComplete from './components/AutoComplete';
 import ModalDropdown from 'react-native-modal-dropdown';
+// import { longitude, latitude } from './components/Location';
+// import Location from './components/Location';
+import Location from './lib/Location';
+
+
 
 export default class App extends Component {
   constructor(props) {
@@ -15,8 +20,29 @@ export default class App extends Component {
       pregnant: false,
       sp: { value: '', selected: null },
       lake: { value: '', selected: null },
-      len: { value: '', selected: null }
+      len: { value: '', selected: null },
+      closestLakes: [],
     };
+  }
+  //Attempt at submit button function
+  submit() {
+    let submission={}
+    submission.sp=this.state.sp,
+    submission.lake=this.state.lake,
+    submission.len=this.state.len,
+    console.warn(submission);
+  //eventual Api fetch??
+   /* var url = '';
+    fetch(url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(submission), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+    */
   }
 
   async componentDidMount() {
@@ -58,7 +84,12 @@ export default class App extends Component {
   }
 
   render() {
-    var scrollOnFocus = (event) => this._scrollToInput(ReactNative.findNodeHandle(event.target))
+    let scrollOnFocus = (event) => this._scrollToInput(ReactNative.findNodeHandle(event.target));
+    let loc = new Location();
+    loc.lakes = data.wbs;
+    loc.closestLakes().then(lakes => this.closestLakes = lakes);
+    loc = null;
+    console.log('closestLakes', this.closestLakes);
 
     return this.state.fontLoaded ? (
       <ScrollView>
@@ -112,7 +143,7 @@ export default class App extends Component {
 
           <AutoComplete
             onSelect={this.handleSelect('lake')}
-            suggestions={data.wbs}
+            suggestions={this.closestLakes}
             suggestionObjectTextProperty='en'
             style={styles.autocomplete}
             inputStyle={styles.autocompleteInput}
@@ -122,6 +153,10 @@ export default class App extends Component {
             keyboardType='default'
             textContentType='none'
           />
+          <TouchableOpacity
+            onPress={()=>this.submit()}>
+          <Text style={styles.submit}>Submit</Text>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
       </ScrollView>
     ) : null
@@ -161,7 +196,7 @@ const styles = StyleSheet.create({
   autocomplete: {
     justifyContent: 'flex-end',
     margin: 10,
-    padding: 4,
+    padding: 1,
     paddingBottom: 0,
     backgroundColor: 'white',
     borderWidth: 1,
@@ -175,12 +210,22 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   picker: {
-    fontSize: 20,
     margin: 0,
+    fontSize: 20,
   },
   pickerItem: {
     fontSize: 20,
     backgroundColor: 'white',
     color: '#34495e',
-  }
+    height: 70,
+  },
+  submit: {
+    backgroundColor: 'skyblue',
+    margin: 20,
+    fontSize: 23,
+    fontFamily: 'lato-bold',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#34495e',
+  },
 });
