@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, ScrollView, TextInput, Picker, Switch, Button, KeyboardAvoidingView } from 'react-native';
+import { Text, StyleSheet, ScrollView, View, TextInput, Picker, Switch, Button, KeyboardAvoidingView } from 'react-native';
 import { Constants, Font } from 'expo';
 import data from './lib/datajs';
 
@@ -65,19 +65,27 @@ export default class App extends Component {
         <KeyboardAvoidingView style={styles.app} behavior="padding" enabled>
           <Text style={styles.title}>GEOF: Guide To Eating Ontario Fish</Text>
 
-          <Text style={styles.paragraph}>Are you under 15?</Text>
+          <View style={styles.row}>
+            <View style={styles.col2}>
+              <Text style={styles.paragraph}>Are you under 15?</Text>
 
-          <Switch
-            onValueChange = {this.handleChange('under15')}
-            value = {this.state.under15}
-          />
+              <Switch
+                onValueChange = {this.handleChange('under15')}
+                value = {this.state.under15}
+                onTintColor="#34495e"
+              />
+            </View>
 
-          <Text style={styles.paragraph}>Are you pregnant?</Text>
+            <View style={styles.col2}>
+              <Text style={styles.paragraph}>Are you pregnant?</Text>
 
-          <Switch
-            onValueChange = {this.handleChange('pregnant')}
-            value = {this.state.pregnant}
-          />
+              <Switch
+                onValueChange = {this.handleChange('pregnant')}
+                value = {this.state.pregnant}
+                onTintColor="#34495e"
+              />
+            </View>
+          </View>
 
           <Text style={styles.paragraph}>What kind of fish did you catch?</Text>
 
@@ -127,6 +135,13 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  col2: {
+    flexDirection: 'column',
+    width: '50%',
   },
   title: {
     margin: 5,
