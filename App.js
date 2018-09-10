@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, ScrollView, View, TextInput, Picker, Switch, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, ScrollView, TextInput, Picker, Switch, Button, KeyboardAvoidingView, TouchableOpacity, AppRegistry, View } from 'react-native';
 import { Constants, Font } from 'expo';
 import data from './lib/datajs';
 
 import AutoComplete from './components/AutoComplete';
 import ModalDropdown from 'react-native-modal-dropdown';
-// import { longitude, latitude } from './components/Location';
-// import Location from './components/Location';
+import StepIndicator from './components/StepIndicator';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { Card } from 'react-native-material-design';
+//import Location from './components/Location';
 import Location from './lib/Location';
+import geolib from 'geolib';
 
 
-
+const labels = ['Age?', 'Pregnant?', 'Fish type?', 'Fish size ?', 'Location?'];
+const PAGES = [''];
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +26,7 @@ export default class App extends Component {
       lake: { value: '', selected: null },
       len: { value: '', selected: null },
       closestLakes: [],
+      currentPosition: 0,
     };
   }
   //Attempt at submit button function
@@ -47,8 +52,14 @@ export default class App extends Component {
 
   async componentDidMount() {
     await Font.loadAsync(require('./lib/fonts'));
-
     this.setState({ fontLoaded: true });
+    let scrollOnFocus = (event) => this._scrollToInput(ReactNative.findNodeHandle(event.target));
+    let loc = new Location();
+    loc.lakes = data.wbs;
+    loc.closestLakes().then(lakes => this.closestLakes = lakes);
+    loc = null;
+    console.log('closestLakes', this.closestLakes);
+
   }
 
   handleChange(k) {
@@ -83,40 +94,36 @@ export default class App extends Component {
     this.scroll.scrollToFocusedInput(reactNode)
   }
 
-  render() {
-    let scrollOnFocus = (event) => this._scrollToInput(ReactNative.findNodeHandle(event.target));
-    let loc = new Location();
-    loc.lakes = data.wbs;
-    loc.closestLakes().then(lakes => this.closestLakes = lakes);
-    loc = null;
-    console.log('closestLakes', this.closestLakes);
+  async componentWillMount() {
+    await Expo.Font.loadAsync({ "Material Design Icons": require("@expo/vector-icons/fonts/MaterialIcons.ttf") });
+    this.setState({ fontsAreLoaded: true })
+  }
 
+
+  render() {
     return this.state.fontLoaded ? (
       <ScrollView>
         <KeyboardAvoidingView style={styles.app} behavior="padding" enabled>
           <Text style={styles.title}>GEOF: Guide To Eating Ontario Fish</Text>
 
-          <View style={styles.row}>
-            <View style={styles.col2}>
-              <Text style={styles.paragraph}>Are you under 15?</Text>
+          <StepIndicator
+         currentPosition={this.state.currentPosition}
+         labels={labels} 
+         />
+         
+          <Text style={styles.paragraph}>Are you under 15 years old?</Text>
 
-              <Switch
-                onValueChange = {this.handleChange('under15')}
-                value = {this.state.under15}
-                onTintColor="#34495e"
-              />
-            </View>
+          <Switch
+            onValueChange = {this.handleChange('under15')}
+            value = {this.state.under15}
+          />
 
-            <View style={styles.col2}>
-              <Text style={styles.paragraph}>Are you pregnant?</Text>
+          <Text style={styles.paragraph}>Are you pregnant?</Text>
 
-              <Switch
-                onValueChange = {this.handleChange('pregnant')}
-                value = {this.state.pregnant}
-                onTintColor="#34495e"
-              />
-            </View>
-          </View>
+          <Switch
+            onValueChange = {this.handleChange('pregnant')}
+            value = {this.state.pregnant}
+          />
 
           <Text style={styles.paragraph}>What kind of fish did you catch?</Text>
 
@@ -153,6 +160,8 @@ export default class App extends Component {
             keyboardType='default'
             textContentType='none'
           />
+
+          
           <TouchableOpacity
             onPress={()=>this.submit()}>
           <Text style={styles.submit}>Submit</Text>
@@ -171,13 +180,6 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
   },
-  row: {
-    flexDirection: 'row',
-  },
-  col2: {
-    flexDirection: 'column',
-    width: '50%',
-  },
   title: {
     margin: 5,
     fontSize: 40,
@@ -187,6 +189,14 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     margin: 10,
+    fontSize: 23,
+    fontFamily: 'lato-bold',
+    fontWeight: 'bold',
+    textAlign: 'left',
+    color: '#34495e',
+  },
+  paragraph2: {
+    margin: 12,
     fontSize: 23,
     fontFamily: 'lato-bold',
     fontWeight: 'bold',
@@ -210,7 +220,7 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   picker: {
-    margin: 0,
+    margin: 0, 
     fontSize: 20,
   },
   pickerItem: {
