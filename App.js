@@ -1,23 +1,17 @@
-import React, { Component } from 'react';
-import { Text, StyleSheet, ScrollView, TextInput, Picker, Switch, Button, KeyboardAvoidingView, TouchableOpacity, AppRegistry, View } from 'react-native';
-import { Constants, Font } from 'expo';
-import data from './lib/datajs';
+import React, { Component } from 'react'
+import { Text, StyleSheet, ScrollView, TextInput, Picker, Switch, Button, KeyboardAvoidingView, TouchableOpacity, AppRegistry, View } from 'react-native'
+import { Constants, Font } from 'expo'
+import data from './lib/datajs'
 
-import AutoComplete from './components/AutoComplete';
-import ModalDropdown from 'react-native-modal-dropdown';
-import StepIndicator from './components/StepIndicator';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { Card } from 'react-native-material-design';
-//import Location from './components/Location';
-import Location from './lib/Location';
-import geolib from 'geolib';
+import AutoComplete from './components/AutoComplete'
+import StepIndicator from './components/StepIndicator'
+import Location from './lib/Location'
 
+const labels = ['Age?', 'Pregnant?', 'Fish type?', 'Fish size?', 'Location?']
 
-const labels = ['Age?', 'Pregnant?', 'Fish type?', 'Fish size ?', 'Location?'];
-const PAGES = [''];
 export default class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       fontLoaded: false,
       under15: false,
@@ -26,43 +20,32 @@ export default class App extends Component {
       lake: { value: '', selected: null },
       len: { value: '', selected: null },
       closestLakes: [],
-      currentPosition: 0,
-    };
-  }
-  //Attempt at submit button function
-  submit() {
-    let submission={}
-    submission.sp=this.state.sp,
-    submission.lake=this.state.lake,
-    submission.len=this.state.len,
-    console.warn(submission);
-  //eventual Api fetch??
-   /* var url = '';
-    fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(submission), // data can be `string` or {object}!
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
-    */
+      currentPosition: 0
+    }
   }
 
-  async componentDidMount() {
-    await Font.loadAsync(require('./lib/fonts'));
-    this.setState({ fontLoaded: true });
-    let scrollOnFocus = (event) => this._scrollToInput(ReactNative.findNodeHandle(event.target));
-    let loc = new Location();
-    loc.lakes = data.wbs;
-    loc.closestLakes().then(lakes => this.closestLakes = lakes);
-    loc = null;
-    console.log('closestLakes', this.closestLakes);
-
+  submit () {
+    let submission = {}
+    submission.sp = this.state.sp,
+    submission.lake = this.state.lake,
+    submission.len = this.state.len,
+    console.warn(submission)
   }
 
-  handleChange(k) {
+  async componentDidMount () {
+    await Font.loadAsync(require('./lib/fonts'))
+    this.setState({ fontLoaded: true })
+    let scrollOnFocus = (event) => this._scrollToInput(ReactNative.findNodeHandle(event.target))
+
+    // TODO: fixup location, i.e. use it
+    let loc = new Location()
+    loc.lakes = data.wbs
+    loc.closestLakes().then(lakes => this.closestLakes = lakes)
+    loc = null
+    console.log('closestLakes', this.closestLakes)
+  }
+
+  handleChange (k) {
     return v => {
       console.log('handling change:', k, v)
       var update = {}
@@ -71,7 +54,7 @@ export default class App extends Component {
     }
   }
 
-  handleSelect(k) {
+  handleSelect (k) {
     return v => {
       console.log('handling select:', k, v)
       var update = {}
@@ -80,7 +63,7 @@ export default class App extends Component {
     }
   }
 
-  handleTyping(k) {
+  handleTyping (k) {
     return v => {
       console.log('handling typing:', k, v)
       var update = {}
@@ -89,18 +72,18 @@ export default class App extends Component {
     }
   }
 
-  _scrollToInput (reactNode: any) {
+  _scrollToInput (reactNode) {
     // Add a 'scroll' ref to your ScrollView
     this.scroll.scrollToFocusedInput(reactNode)
   }
 
-  async componentWillMount() {
-    await Expo.Font.loadAsync({ "Material Design Icons": require("@expo/vector-icons/fonts/MaterialIcons.ttf") });
+  async componentWillMount () {
+    await Expo.Font.loadAsync({ "Material Design Icons": require("@expo/vector-icons/fonts/MaterialIcons.ttf") })
     this.setState({ fontsAreLoaded: true })
   }
 
 
-  render() {
+  render () {
     return this.state.fontLoaded ? (
       <ScrollView>
         <KeyboardAvoidingView style={styles.app} behavior="padding" enabled>
@@ -176,7 +159,6 @@ const styles = StyleSheet.create({
   app: {
     flex: 10,
     alignItems: 'stretch',
-    // justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
   },
@@ -238,4 +220,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#34495e',
   },
-});
+})

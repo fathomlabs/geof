@@ -1,15 +1,13 @@
 
-import React, { Component } from 'react';
-import { AppRegistry,StyleSheet,View, Text } from 'react-native';
-import { ViewPager } from 'rn-viewpager';
+import React, { Component } from 'react'
+import { AppRegistry, StyleSheet, View, Text } from 'react-native'
+import { ViewPager } from 'rn-viewpager'
 
-import StepIndicator from 'react-native-step-indicator';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { Button, Card } from 'react-native-material-design';
+import StepIndicator from 'react-native-step-indicator'
+import MaterialIcon from '@expo/vector-icons/MaterialIcons'
 
-
-const labels = ['Age?', 'Pregnant?', 'Fish type?', 'Fish size ?', 'Location?'];
-const PAGES = [''];
+// const labels = ['Age?', 'Pregnant?', 'Fish type?', 'Fish size ?', 'Location?']
+const PAGES = ['']
 const firstIndicatorStyles = {
   stepIndicatorSize:30,
   currentStepIndicatorSize:40,
@@ -30,108 +28,55 @@ const firstIndicatorStyles = {
   currentStepLabelColor: '#4aae4f'
 }
 
-const secondIndicatorStyles = {
-  stepIndicatorSize: 30,
-  currentStepIndicatorSize:40,
-  separatorStrokeWidth: 2,
-  currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: '#fe7013',
-  stepStrokeWidth: 3,
-  stepStrokeFinishedColor: '#fe7013',
-  stepStrokeUnFinishedColor: '#aaaaaa',
-  separatorFinishedColor: '#fe7013',
-  separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: '#fe7013',
-  stepIndicatorUnFinishedColor: '#ffffff',
-  stepIndicatorCurrentColor: '#ffffff',
-  stepIndicatorLabelFontSize: 13,
-  currentStepIndicatorLabelFontSize: 13,
-  stepIndicatorLabelCurrentColor: '#fe7013',
-  stepIndicatorLabelFinishedColor: '#ffffff',
-  stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-  labelColor: '#999999',
-  labelSize: 13,
-  currentStepLabelColor: '#fe7013'
-}
-
-const thirdIndicatorStyles = {
-  stepIndicatorSize: 25,
-  currentStepIndicatorSize:30,
-  separatorStrokeWidth: 2,
-  currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: '#7eaec4',
-  stepStrokeWidth: 3,
-  stepStrokeFinishedColor: '#7eaec4',
-  stepStrokeUnFinishedColor: '#dedede',
-  separatorFinishedColor: '#7eaec4',
-  separatorUnFinishedColor: '#dedede',
-  stepIndicatorFinishedColor: '#7eaec4',
-  stepIndicatorUnFinishedColor: '#ffffff',
-  stepIndicatorCurrentColor: '#ffffff',
-  stepIndicatorLabelFontSize: 0,
-  currentStepIndicatorLabelFontSize: 0,
-  stepIndicatorLabelCurrentColor: 'transparent',
-  stepIndicatorLabelFinishedColor: 'transparent',
-  stepIndicatorLabelUnFinishedColor: 'transparent',
-  labelColor: '#999999',
-  labelSize: 13,
-  currentStepLabelColor: '#7eaec4'
-}
-
 const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
       name: 'feed',
       color: stepStatus === 'finished' ? '#ffffff' : '#fe7013',
       size: 15,
-    };
+    }
     switch (position) {
       case 0: {
-        iconConfig.name = 'shopping-cart';
-        break;
+        iconConfig.name = 'shopping-cart'
+        break
       }
       case 1: {
-        iconConfig.name = 'location-on';
-        break;
+        iconConfig.name = 'location-on'
+        break
       }
       case 2: {
-        iconConfig.name = 'assessment';
-        break;
+        iconConfig.name = 'assessment'
+        break
       }
       case 3: {
-        iconConfig.name = 'payment';
-        break;
+        iconConfig.name = 'payment'
+        break
       }
       case 4: {
-        iconConfig.name = 'track-changes';
-        break;
+        iconConfig.name = 'track-changes'
+        break
       }
       default: {
-        break;
+        break
       }
     }
-    return iconConfig;
-  };
+    return iconConfig
+  }
 
 export default class App extends Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       currentPage:0
     }
   }
 
   componentWillReceiveProps(nextProps,nextState) {
-    if(nextState.currentPage != this.state.currentPage) {
-      if(this.viewPager) {
+    if (nextState.currentPage != this.state.currentPage) {
+      if (this.viewPager) {
         this.viewPager.setPage(nextState.currentPage)
       }
     }
-
-    async componentWillMount() {
-    await Expo.Font.loadAsync({ "Material Design Icons": require("@expo/vector-icons/fonts/MaterialIcons.ttf") });
-    this.setState({ fontsAreLoaded: true })
-   }
   }
 
   render() {
@@ -140,21 +85,15 @@ export default class App extends Component {
         <View style={styles.stepIndicator}>
           <StepIndicator customStyles={firstIndicatorStyles} currentPosition={this.state.currentPage} labels={['Age?', 'Pregnant?', 'Fish type?', 'Fish size ?', 'Location?']} />
         </View>
-        <View style={styles.stepIndicator}>
-          <StepIndicator renderStepIndicator={this.renderStepIndicator} customStyles={secondIndicatorStyles} currentPosition={this.state.currentPage} labels={["Cart","Delivery Address","Order Summary","Payment Method","Track"]} />
-        </View>
-        <View style={styles.stepIndicator}>
-          <StepIndicator stepCount={4} customStyles={thirdIndicatorStyles} currentPosition={this.state.currentPage} labels={["Approval","Processing","Shipping","Delivery"]} />
-        </View>
         <ViewPager
           style={{flexGrow:1}}
           ref={(viewPager) => {this.viewPager = viewPager}}
           onPageSelected={(page) => {this.setState({currentPage:page.position})}}
-          >
-            {PAGES.map((page) => this.renderViewPagerPage(page))}
-          </ViewPager>
+        >
+          {PAGES.map((page) => this.renderViewPagerPage(page))}
+        </ViewPager>
       </View>
-    );
+    )
   }
 
   renderViewPagerPage = (data) => {
@@ -164,8 +103,10 @@ export default class App extends Component {
   }
 
   renderStepIndicator = params => (
-    <MaterialIcon {...getStepIndicatorIconConfig(params)} />
-  );
+    this.state.fontsLoaded
+    ? <MaterialIcon {...getStepIndicatorIconConfig(params)} />
+    : null
+  )
 }
 
 const styles = StyleSheet.create({
@@ -181,4 +122,4 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center'
   }
-});
+})
