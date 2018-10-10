@@ -2,12 +2,12 @@
   "name": "map",
   "short_name": "map",
   "description": "GEOF lake map",
-  "start_url": "https://fathomlabs.io/geof/demos/map/live/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#000",
   "theme_color": "#000",
   "icons": [{
-    "src": "/assets/icon.png",
+    "src": "./assets/icon.png",
     "type": "image/png",
     "sizes": "512x512"
   }]
