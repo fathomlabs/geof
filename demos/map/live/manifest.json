@@ -1,1 +1,1 @@
-{"name":"map","short_name":"map","description":"GEOF lake map","start_url":"/geof/demos/map/","display":"standalone","background_color":"#000","theme_color":"#000","icons":[{"src":"/assets/icon.png","type":"image/png","sizes":"512x512"}]}
+{"name":"map","short_name":"map","description":"GEOF lake map","start_url":"https://fathomlabs.io/geof/demos/map/live/","display":"standalone","background_color":"#000","theme_color":"#000","icons":[{"src":"/assets/icon.png","type":"image/png","sizes":"512x512"}]}

@@ -2,7 +2,7 @@
   "name": "map",
   "short_name": "map",
   "description": "GEOF lake map",
-  "start_url": "/geof/demos/map/",
+  "start_url": "https://fathomlabs.io/geof/demos/map/live/",
   "display": "standalone",
   "background_color": "#000",
   "theme_color": "#000",
