@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(require('./stores/map'))
+app.use(require('./stores/lake'))
 
 app.route('/', require('./views/main'))
 app.route('/*', require('./views/main'))

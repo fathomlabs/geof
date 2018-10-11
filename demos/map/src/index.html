@@ -16,26 +16,103 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.1.0/dist/leaflet.markercluster-src.js"></script>
 
   <style>
-    .waterbody-popup {
-      width: auto;
-      font-family: 'Roboto Slab', serif;
+    .lds-grid {
+      display: inline-block;
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+    .lds-grid div {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #cef;
+      animation: lds-grid 1.2s linear infinite;
+    }
+    .lds-grid div:nth-child(1) {
+      top: 6px;
+      left: 6px;
+      animation-delay: 0s;
+    }
+    .lds-grid div:nth-child(2) {
+      top: 6px;
+      left: 26px;
+      animation-delay: -0.4s;
+    }
+    .lds-grid div:nth-child(3) {
+      top: 6px;
+      left: 45px;
+      animation-delay: -0.8s;
+    }
+    .lds-grid div:nth-child(4) {
+      top: 26px;
+      left: 6px;
+      animation-delay: -0.4s;
+    }
+    .lds-grid div:nth-child(5) {
+      top: 26px;
+      left: 26px;
+      animation-delay: -0.8s;
+    }
+    .lds-grid div:nth-child(6) {
+      top: 26px;
+      left: 45px;
+      animation-delay: -1.2s;
+    }
+    .lds-grid div:nth-child(7) {
+      top: 45px;
+      left: 6px;
+      animation-delay: -0.8s;
+    }
+    .lds-grid div:nth-child(8) {
+      top: 45px;
+      left: 26px;
+      animation-delay: -1.2s;
+    }
+    .lds-grid div:nth-child(9) {
+      top: 45px;
+      left: 45px;
+      animation-delay: -1.6s;
+    }
+    @keyframes lds-grid {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    .leaflet-tooltip {
       border-radius: 0;
-      font-size: 16px;
+      width: auto;
+      background: none;
+      color: #333333;
+      border: 0;
+      box-shadow: none;
+      pointer-events: all;
+      cursor: pointer;
     }
 
-    .waterbody-popup .leaflet-popup-content-wrapper {
-      border-radius: 0;
-      width: auto;
-      background-color: rgba(12, 12, 12, 0.8);
-      color: #ccc;
-    }
-
-    .waterbody-popup .leaflet-popup-tip-container {
+    .leaflet-tooltip:before {
       display: none;
     }
 
-    .waterbody-popup a.leaflet-popup-close-button {
-      padding: 2px 2px 0 0;
+    .leaflet-tooltip > button {
+      padding: 20px;
+      margin-top: -20px;
+      border: 0;
+      font-size: 1.3em;
+      font-family: 'Roboto Slab';
+      background: none;
+      font-style: italic;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .leaflet-tooltip > button:hover {
+      color: white;
+      background: rgba(120, 120, 120, 0.4);
     }
 
     img,
