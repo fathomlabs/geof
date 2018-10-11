@@ -24,6 +24,12 @@
     },
     "ios": {
       "supportsTablet": true
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#bbbbbb"
+    },
+    "splash": {
+      "image": "./assets/splash.png"
     }
   }
 }
