@@ -14,30 +14,18 @@ function view (state, emit) {
     ${statusbar(`bg-${state.styleOpts.primary}`)}
     ${navigation(state, emit, {
       classes: `bg-${state.styleOpts.primary}`,
-      left: null,
+      left: navbutton(state, {
+          label: 'back',
+          onclick: () => emit('pushState', '/')
+      }),
       middle: 'Title',
       right: 'settings'
     })}
-    <div class="${state.styles.section}">
-      <h1 class="${state.styles.title}">
-        Section One
-      </h1>
-      section one
-    </div>
-    <div class="${state.styles.section}">
-      <h1 class="${state.styles.title}">
-        Section Two
-      </h1>
-      section two
-    </div>
-    <div class="${state.styles.section}">
-      <h1 class="${state.styles.title}">
-        Section Three
-      </h1>
-      section three
+    <div class="${state.styles.mapcontainer}">
+      map
     </div>
     <div class="mh2">
-      ${button(state, { classes: "w-100", label: 'New catch', onclick: () => emit('pushState', '/catch') })}
+      ${button(state, { classes: "w-100", label: 'Next: which fish?', onclick: () => emit('navigate:catch') })}
     </div>
     ${footer(state, emit)}
   </div>
@@ -56,6 +44,17 @@ function button (state, opts) {
 
   el.onclick = opts.onclick
   return el
+}
+
+function navbutton(state, opts) {
+    var el = html `
+  
+  <button class="${state.styles.navbutton} ${opts.classes}">${opts.label}</button>
+  
+  `
+
+    el.onclick = opts.onclick
+    return el
 }
 
 function footer (state, emit) {
