@@ -1,3 +1,4 @@
+require('isomorphic-fetch')
 var css = require('sheetify')
 var choo = require('choo')
 
@@ -11,26 +12,15 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(require('choo-service-worker')())
 }
 
-var { moveLeft } = require('animation-toolbox')
-var delay = 400
-
-app.use(require('choo-animate')({
-  animations: {
-    'movein': function (el) {
-      return moveLeft(el, '100%', '0%', delay)
-    },
-    'moveout': function (el) {
-      return moveLeft(el, '0%', '100%', delay)
-    }
-  },
-  before: 'movein',
-  after: 'moveout'
-}))
-
-app.use(require('./stores/clicks'))
+app.use(require('./stores/app'))
+app.use(require('./stores/user'))
+app.use(require('./stores/fishdata'))
+app.use(require('./stores/catches'))
 app.use(require('./stores/styles'))
+app.use(require('./stores/clicks'))
 
-app.route('/', require('./views/main'))
+app.route('/', require('./views/startup'))
+app.route('/home', require('./views/home'))
 app.route('/catch', require('./views/catch'))
 app.route('/*', require('./views/404'))
 

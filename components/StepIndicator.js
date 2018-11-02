@@ -1,32 +1,9 @@
-
 import React, { Component } from 'react'
 import { AppRegistry, StyleSheet, View, Text } from 'react-native'
 import { ViewPager } from 'rn-viewpager'
 
 import StepIndicator from 'react-native-step-indicator'
-import MaterialIcon from '@expo/vector-icons/MaterialIcons'
-
-// const labels = ['Age?', 'Pregnant?', 'Fish type?', 'Fish size ?', 'Location?']
-const PAGES = ['']
-const firstIndicatorStyles = {
-  stepIndicatorSize:30,
-  currentStepIndicatorSize:40,
-  separatorStrokeWidth: 3,
-  currentStepStrokeWidth: 5,
-  separatorFinishedColor: '#4aae4f',
-  separatorUnFinishedColor: '#a4d4a5',
-  stepIndicatorFinishedColor: '#4aae4f',
-  stepIndicatorUnFinishedColor: '#a4d4a5',
-  stepIndicatorCurrentColor: '#ffffff',
-  stepIndicatorLabelFontSize: 15,
-  currentStepIndicatorLabelFontSize: 15,
-  stepIndicatorLabelCurrentColor: '#000000',
-  stepIndicatorLabelFinishedColor: '#ffffff',
-  stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
-  labelColor: '#666666',
-  labelSize: 12,
-  currentStepLabelColor: '#4aae4f'
-}
+import MaterialIcons from '@expo/vector-icons'
 
 const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
@@ -64,22 +41,34 @@ const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
 
 export default class App extends Component {
 
-  constructor() {
+  constructor () {
     super()
     this.state = {
-      currentPage:0
+      currentPage: 0
     }
   }
 
-  componentWillReceiveProps(nextProps,nextState) {
-    if (nextState.currentPage != this.state.currentPage) {
-      if (this.viewPager) {
-        this.viewPager.setPage(nextState.currentPage)
-      }
+  async componentWillMount() {
+    try {
+      await Font.loadAsync({
+        MaterialIcons
+      })
+
+      this.setState({
+        fontLoaded: true
+      })
+    } catch (error) {
+      console.log('error loading icon fonts', error);
     }
   }
 
-  render() {
+  componentWillReceiveProps (nextProps,nextState) {
+    if ((nextState.currentPage != this.state.currentPage) && this.viewPager) {
+      this.viewPager.setPage(nextState.currentPage)
+    }
+  }
+
+  render () {
     return (
       <View style={styles.container}>
         <View style={styles.stepIndicator}>
@@ -90,7 +79,7 @@ export default class App extends Component {
           ref={(viewPager) => {this.viewPager = viewPager}}
           onPageSelected={(page) => {this.setState({currentPage:page.position})}}
         >
-          {PAGES.map((page) => this.renderViewPagerPage(page))}
+        {PAGES.map((page) => this.renderViewPagerPage(page))}
         </ViewPager>
       </View>
     )
@@ -102,11 +91,9 @@ export default class App extends Component {
     </View>)
   }
 
-  renderStepIndicator = params => (
-    this.state.fontsLoaded
-    ? <MaterialIcon {...getStepIndicatorIconConfig(params)} />
-    : null
-  )
+  renderStepIndicator = params => {}
+    // <MaterialIcon {...getStepIndicatorIconConfig(params)} />
+  // )
 }
 
 const styles = StyleSheet.create({
@@ -123,3 +110,25 @@ const styles = StyleSheet.create({
     alignItems:'center'
   }
 })
+
+// const labels = ['Age?', 'Pregnant?', 'Fish type?', 'Fish size ?', 'Location?']
+const PAGES = ['hello', 'hi', 'oh hey']
+const firstIndicatorStyles = {
+  stepIndicatorSize: 30,
+  currentStepIndicatorSize: 40,
+  separatorStrokeWidth: 3,
+  currentStepStrokeWidth: 5,
+  separatorFinishedColor: '#4aae4f',
+  separatorUnFinishedColor: '#a4d4a5',
+  stepIndicatorFinishedColor: '#4aae4f',
+  stepIndicatorUnFinishedColor: '#a4d4a5',
+  stepIndicatorCurrentColor: '#ffffff',
+  stepIndicatorLabelFontSize: 15,
+  currentStepIndicatorLabelFontSize: 15,
+  stepIndicatorLabelCurrentColor: '#000000',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
+  labelColor: '#666666',
+  labelSize: 12,
+  currentStepLabelColor: '#4aae4f'
+}

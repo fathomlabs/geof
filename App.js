@@ -14,8 +14,6 @@ export default class App extends Component {
     super(props)
     this.state = {
       fontLoaded: false,
-      under15: false,
-      pregnant: false,
       sp: { value: '', selected: null },
       lake: { value: '', selected: null },
       len: { value: '', selected: null },
@@ -82,7 +80,6 @@ export default class App extends Component {
     this.setState({ fontsAreLoaded: true })
   }
 
-
   render () {
     return this.state.fontLoaded ? (
       <ScrollView>
@@ -93,20 +90,6 @@ export default class App extends Component {
          currentPosition={this.state.currentPosition}
          labels={labels} 
          />
-         
-          <Text style={styles.paragraph}>Are you under 15 years old?</Text>
-
-          <Switch
-            onValueChange = {this.handleChange('under15')}
-            value = {this.state.under15}
-          />
-
-          <Text style={styles.paragraph}>Are you pregnant?</Text>
-
-          <Switch
-            onValueChange = {this.handleChange('pregnant')}
-            value = {this.state.pregnant}
-          />
 
           <Text style={styles.paragraph}>What kind of fish did you catch?</Text>
 
