@@ -1,1 +1,1 @@
-{"name":"src","short_name":"src","description":"Guide to Eating Ontario Fish","start_url":"/","display":"standalone","background_color":"#000","theme_color":"#000","icons":[{"src":"/assets/icon.png","type":"image/png","sizes":"512x512"}]}
+{"name":"geof","short_name":"geof","description":"Guide to Eating Ontario Fish","start_url":"./","display":"standalone","background_color":"#000","theme_color":"#000","icons":[{"src":"/assets/icon.png","type":"image/png","sizes":"512x512"}]}
