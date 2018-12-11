@@ -41,6 +41,7 @@ geojson.features.forEach(entry => {
     // "ADV_CAUSE_DESC": "Mercury",
     // "GUIDE_YEAR": "",
     // "GUIDE_LOCDESC
+
 var d = {
   wb: {}, // waterbodies
   spp: {}, // species
@@ -48,6 +49,11 @@ var d = {
   causes: {},
   adv: {} // advisories
 }
+
+// adv structure:
+// wb: "GUIDE_WATERBODY_CODE": 45157904,
+// sp: "SPECIES_CODE":,
+// len: LENGTH_CATEGORY_ID:
 
 var parseone = (entry, i) => {
   // waterbody entry
@@ -58,10 +64,8 @@ var parseone = (entry, i) => {
       en: entry.GUIDE_LOCNAME_ENG,
       fr: entry.GUIDE_LOCNAME_FR
     },
-    loc: geo,
-    advisories: []
+    loc: geo
   }
-  wbentry.advisories.push(i)
   d.wb[wbid] = wbentry
 
   // species entry
@@ -92,7 +96,7 @@ var parseone = (entry, i) => {
   d.causes[causeid] = entry.ADV_CAUSE_DESC
 
   // advisory entry
-  var advid = i
+  var advkey = `${wbid}:${spid}:${lenid}`
   var adventry = {
     wb: wbid,
     sp: spid,
@@ -101,7 +105,11 @@ var parseone = (entry, i) => {
     level: entry.ADV_LEVEL,
     cause: causeid
   }
-  d.adv[i] = adventry
+  if (d.adv[advkey]) {
+    d.adv[advkey].push(adventry)
+  } else {
+    d.adv[advkey] = [adventry]
+  }
 }
 
 parse(input, {
