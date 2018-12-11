@@ -8,7 +8,7 @@ var tab = require('./tab')
 function footer(state, emit, opts) {
   opts = opts || {}
 
-  return html `
+  return html`
   
   <div class="${state.style.classes.footer}">
     ${tab(state, emit, opts.left || { icon: ':)', label: 'smile' })}

@@ -39,7 +39,7 @@ var style = css`
 `
 
 module.exports = function component(state, emit, opts) {
-  return html `
+  return html`
   
   <div class="lds-ripple flex"><div></div><div></div></div>
 

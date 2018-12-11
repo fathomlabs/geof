@@ -5,12 +5,12 @@ var css = require('sheetify')
 var style = css`
 
 :host {
-  display: block;
+  display: flex;
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: calc(100vh - 48px);
   background: white;
 }
 

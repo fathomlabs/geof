@@ -25,7 +25,7 @@ module.exports = class FishPicker extends Component {
     var self = this
     var el = html`
     
-    <div class="h-100">
+    <div class="" style="position: relative; min-height: calc(100vh - 48px); width: 100vw;">
       ${this.controls.render()}
     </div>
     
@@ -43,17 +43,23 @@ module.exports = class FishPicker extends Component {
       </div>
       
       `
+
+      self.fishes = {}
       
       var searchableInput = new SearchableInput(
         inner,
         [{
           name: '',
           items: Object.values(self.state.data.spp).map((f, i) => {
-            return {
-              id: i,
+            var entry = {
               name: f.name.en,
-              keywords: f.name.en.split(' ').concat(f.name.fr.split(' '))
+              value: Object.assign({
+                id: i
+              }, f),
+              keywords: Object.values(f.name).join(' ').split(' ')
             }
+            self.fishes[entry.name] = entry.value
+            return entry
           })
         }],
         {
@@ -62,14 +68,10 @@ module.exports = class FishPicker extends Component {
         }
       )
 
-      searchableInput.on('select', function(value) {
-        self.selected = value
+      searchableInput.on('select', function(value) {        
+        self.selected = self.fishes[value.item.name]
         self._showControls()
-      });
-
-      searchableInput.on('change', function(value) {
-        console.log('changed', value)
-      });
+      })
 
       var submit = html`<button class="ba br1 pa2 w-100 dark-gray bg-white hover-bg-light-gray hover-white">Select</button>`
 
@@ -87,18 +89,24 @@ module.exports = class FishPicker extends Component {
 
   _createControls() {
     this.controls = this.state.cache(Popover, 'fishpicker-controls-popover')
+    if (this.element && !this.controls.element) {
+      this.controls.hide()
+      this.element.appendChild(this.controls.render())
+    }
   }
 
   _showControls() {
     if (!this.selected) return
+    this._createControls()
     var self = this
     var confirm = button(self.state, self.emit, {
       label: 'yes',
       classes: 'w-40',
       onclick: () => {
         self.next({
-          sp: self.selected.item
+          sp: self.selected
         })
+        self._dismissControls()
       }
     })
     var cancel = button(self.state, self.emit, {
@@ -106,14 +114,14 @@ module.exports = class FishPicker extends Component {
       classes: 'w-40',
       onclick: () => self._dismissControls()
     })
-    var controlcontent = html `
+    var controlcontent = html`
       
-      <div class="flex flex-column f3" style="justify-content: center;">
-        <div><p class="pv1">Did you catch a ${this.selected.item.name}?</p></div>
-        <div class="flex flex-row" style="justify-content: space-evenly;">${confirm}${cancel}</div>
-      </div>
+    <div class="flex flex-column f3" style="justify-content: center;">
+      <div><p class="pv1">Did you catch a ${this.selected.name.en}?</p></div>
+      <div class="flex flex-row" style="justify-content: space-evenly;">${confirm}${cancel}</div>
+    </div>
 
-      `
+    `
     this.controls.show({
       content: controlcontent
     })

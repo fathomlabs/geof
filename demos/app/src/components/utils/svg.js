@@ -3,8 +3,8 @@ var stylise = require('../../lib/stylise')
 
 var getStyle = opts => {
   return stylise({
-    'width': `${opts.width || '60px'}`,
-    'height': `${opts.width || '60px'}`,
+    'min-width': `${opts.size || '80px'}`,
+    'height': `${opts.size || '80px'}`,
     'background-color': opts.backgroundColor || '#333',
     '-webkit-mask': `url(./assets/svg/${opts.name}.svg) center / contain no-repeat`,
     'margin-top': '-2px'

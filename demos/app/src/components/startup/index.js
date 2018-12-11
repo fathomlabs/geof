@@ -9,9 +9,13 @@ module.exports = function (state, emit, opts) {
     next => welcome(state, emit, { next }),
     next => setup(state, emit, { next })
   ]
-  var stack = state.cache(Stack, 'welcome-stack', leaves)
+  var stack = state.cache(Stack, 'welcome-stack', leaves, {
+    done: () => {
+      console.log('startup stack completed')
+    }
+  })
 
-  return html `
+  return html`
   
   <div class="w-100 h-100 bg-white flex flex-column" style="justify-content: center; align-content: center;">
     ${stack.render()}

@@ -17,9 +17,9 @@ var main = css`
 var section = css`
 
 :host {
-  background: -moz-linear-gradient(top, rgba(255,255,255,0.6) 0%, rgba(246,246,246,0.6) 44%, rgba(237,237,237,0.6) 100%);
-  background: -webkit-linear-gradient(top, rgba(255,255,255,0.6) 0%,rgba(246,246,246,0.6) 44%,rgba(237,237,237,0.6) 100%);
-  background: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(246,246,246,0.6) 44%,rgba(237,237,237,0.6) 100%);
+  background: -moz-linear-gradient(top, rgba(255,255,255,0.7) 0%, rgba(246,246,246,0.7) 44%, rgba(237,237,237,0.7) 100%);
+  background: -webkit-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(246,246,246,0.7) 44%,rgba(237,237,237,0.7) 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%,rgba(246,246,246,0.7) 44%,rgba(237,237,237,0.7) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4dffffff', endColorstr='#4dededed',GradientType=0 );
 }
 

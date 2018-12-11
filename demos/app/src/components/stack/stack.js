@@ -15,7 +15,10 @@ module.exports = class Stack extends Component {
 
   _nextCallback (i) {
     var self = this
-    return () => {
+    return (data) => {
+      if (self.opts.onnext) {
+        self.opts.onnext(data)
+      }
       // self.leaves[i].hide()
       var nextleaf = self.leaves[i+1]
       if (nextleaf) {
@@ -40,7 +43,7 @@ module.exports = class Stack extends Component {
     })
 
     return html`
-      <div class = "${this.opts.classes}" style="display: block; position: absolute; left: 0; top: 0; bottom: 0; right: 0;">
+      <div class="flex w-100 h-100 ${this.opts.classes || ''}" style="position: relative;">
         ${this.leaves.map(leaf => leaf.render())}
       </div>
     `
@@ -60,13 +63,23 @@ module.exports = class Stack extends Component {
 
   unload () {
     // maybe do something when it's unloaded from the DOM
+    // this.element = null
+    this._reset()
+  }
+
+  _restack () {
+    this.leaves.forEach(leaf => {
+      leaf.hideRight()
+    })
+    this.leaves[0].show()
   }
 
   _allStepsDone () {
-    if (this.opts.done) {
-      this.opts.done()
-    } else {
-      this.emit('pushState', '/home')
+    if (this.opts.ondone) {
+      this.opts.ondone()
     }
+    this._restack()
+    this._reset()
+    this.emit('pushState', '/home')
   }
 }

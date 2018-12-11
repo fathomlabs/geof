@@ -18,5 +18,6 @@ module.exports = {
   Fishpicker: require('./catch/fishpicker/fishpicker'),
   Stack: require('./stack'),
   Stackable: require('./stack/stackable'),
-  startup: require('./startup')
+  startup: require('./startup'),
+  size: require('./catch/size')
 }

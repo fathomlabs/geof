@@ -1,5 +1,6 @@
 var Component = require('choo/component')
 var html = require('choo/html')
+var stylise = require('../../lib/stylise')
 
 var css = require('sheetify')
 
@@ -8,8 +9,8 @@ var baseStyle = css`
 :host {
   border-top: 1px solid #ddd;
   background: white;
-  height: 0;
   padding: 0 20px;
+  padding-bottom: 20px;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -24,28 +25,22 @@ var baseStyle = css`
 
 `
 
-var hiddenStyle = css`
-
-:host {
-  height: 0;
-}
-
-`
-
 module.exports = class Popover extends Component {
   constructor(id, state, emit, opts) {
     super(id, state, emit, opts)
     this.opts = Object.assign({
       classes: [baseStyle],
-      style: '',
+      style: {
+        height: 0
+      },
       content: null
     }, opts)
   }
 
   createElement () {
-    return html `
+    return html`
     
-    <div class="${this.opts.classes.join(' ')}" style="${this.opts.style}">
+    <div class="popover ${this.opts.classes.join(' ')}" style="${stylise(this.opts.style)}">
       ${this.opts.content}
     </div>
     
@@ -53,20 +48,20 @@ module.exports = class Popover extends Component {
   }
 
   update () {
-    return false
+    return this.element ? false : true
   }
 
   show (opts) {
     Object.assign(this.opts, opts)
-    if (!opts.style) {
-      this.opts.style += 'height: 200px;'
-    }
-    this.rerender()
+    this.opts.style.display = 'block'
+    this.opts.style.height = 'auto !important'
+    if (this.element) this.rerender()
   }
 
-  hide() {
+  hide () {
     // TODO: make this less messy
-    this.opts.style += 'height: 0;'
-    this.rerender()
+    this.opts.style.display = 'none'
+    this.opts.style.height = 0
+    if (this.element) this.rerender()
   }
 }

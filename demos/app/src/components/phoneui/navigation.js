@@ -9,7 +9,7 @@ function navigation(state, emit, opts) {
 
   return html`
   
-  <div class="flex w-100 ma0 pa0 f2 white items-center ${opts.classes || ''}" style="height: 48px; margin-top: -3px; ${opts.style || ''}">
+  <div class="flex w-100 ma0 pa0 f2 white items-center ${opts.classes || ''}" style="height: 48px; ${opts.style || ''}">
     ${left}
     ${middle}
     ${right}

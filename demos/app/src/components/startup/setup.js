@@ -61,7 +61,9 @@ module.exports = function setup(state, emit) {
 
   form.onsubmit = e => {
     e.preventDefault()
-    var data = {}
+    var data = {
+      setupDone: true
+    }
     parts.forEach(part => {
       var partdata = part.getAnswer()
       data[partdata.name] = partdata.answer === 'yes'

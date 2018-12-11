@@ -5,7 +5,6 @@ var {
   section,
   navigation,
   // footer,
-  statusbar,
   button,
   form,
   setup,
@@ -14,8 +13,8 @@ var {
 } = require('../components')
 
 var {
-  overview,
-  quick
+  recent,
+  meals
 } = require('../components/cards')
 
 var {
@@ -32,18 +31,17 @@ function view (state, emit) {
   var sections = [
     {
       title: 'Overview',
-      content: overview(state, emit)
+      content: meals(state, emit)
     },
     {
-      title: 'Quick actions',
-      content: quick(state, emit)
+      title: 'Recent catches',
+      content: recent(state, emit)
     }
   ]
 
   var content = html`
   
-  <div class="${state.style.classes.main} mainwrapper flex flex-column" style="position: absolute; height: 100%;">
-    ${statusbar({ classes: `bg-${state.styleOpts.primary}`, style: 'flex: 0 0 auto;'})}
+  <div class="${state.style.classes.main} flex flex-column w-100 h-100">
     ${navigation(state, emit, {
       classes: `bg-${state.styleOpts.primary}`,
       style: 'flex: 0 0 auto;',

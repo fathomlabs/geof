@@ -1,9 +1,3 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 const { icon } = require('../utils/icon')
 const html = require('choo/html')
 const escapeHtml = require('escape-html')
@@ -83,7 +77,6 @@ class SearchableInput extends EventEmitter {
     const searchwords_ = searchwords.replace(new RegExp('　', 'g'), ' ').split(' ')
 
     items.forEach(function(item) {
-      // 末端の場合
       if (!item.items) {
         searchwords_.forEach(function(keyword_) {
           if ((keyword_ === '') && (searchwords_.length > 1)) { return }
@@ -96,7 +89,6 @@ class SearchableInput extends EventEmitter {
 
             if (item_.keywords) {
               return item_.keywords.forEach(function(keyword) {
-                // FIXME: orマッチになっている andマッチのほうがよいように思うのだが
                 if (keyword.toUpperCase().indexOf(keyword_.toUpperCase()) !== -1) {
                   return tmp.push(item_)
                 }
@@ -109,7 +101,6 @@ class SearchableInput extends EventEmitter {
       } else {
         tmp = SearchableInput._searchItems(item.items, searchwords)
 
-        // tmpの長さがない場合、親itemが不要
         if (tmp.length !== 0) {
           searchedItems.push({
             name: item.name,
@@ -133,8 +124,6 @@ class SearchableInput extends EventEmitter {
 
   static selectElementSerialize(selectElement) {
     const itemElements = selectElement.querySelectorAll('select > option, select > optgroup')
-    // optgroupがoptgroupを持つことができないため
-    // ネストした状態を考慮する必要がない
     const items = []
     const _retrieveKeywords = function(optionElement) {
       const keywords = optionElement.getAttribute('data-keywords')
@@ -393,8 +382,6 @@ class SearchableInput extends EventEmitter {
   }
 
   _focusInput() {
-    // 2度目以降に.searchable-input-search-inputのfocusが効かないので
-    // focusを意図的に行う
     return this._el.querySelector('.searchable-input-search-input').focus()
   }
 
@@ -456,7 +443,7 @@ class SearchableInput extends EventEmitter {
     return `
 <div class="searchable-input-search-box ${this._getPositionClassNames().join(' ')}">
   <div class="searchable-input-search-input-container">
-    <input type="text" class="searchable-input-search-input pa3 ba1 br1 w-100" />
+    <input type="text" placeholder="type a fish name" class="searchable-input-search-input pa3 ba1 br1 w-100" />
   </div>
   <div class="searchable-input-list-container">
     <div class="searchable-input-list w-100">${ this._templateItems(searchedItems) }</div>
@@ -476,7 +463,6 @@ class SearchableInput extends EventEmitter {
 
   // template helper
   _getPositionClassNames() {
-    // この値より画面の余裕がないければ上表示にする
     const maxLeftHeight = 400
     const maxLeftWidth = 100
 
@@ -500,14 +486,11 @@ class SearchableInput extends EventEmitter {
   }
 
   // render
-  // _renderInputと_renderListは本来なら不要だが、focusやselectを保持するために
-  // 差分更新が必要でそのために作成した
   _renderInput() {
     const inputA = this._el.querySelector('input[type="hidden"]')
     const inputB = this._el.querySelector('.searchable-input-search-input')
-    console.log(inputB)
     inputA.value = this._inputValue
-    return inputB.value = this._inputValue
+    return
   }
 
   _renderList() {
@@ -528,7 +511,6 @@ class SearchableInput extends EventEmitter {
 
   // render helper
   _scrollListContainer() {
-    // 選択状態にものがあれば、そこまで移動する
     const selectedItem = this._el.querySelector('.searchable-input-list-item.is-selected')
     if (selectedItem) {
       const itemTop = selectedItem.offsetTop

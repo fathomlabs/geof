@@ -19,7 +19,7 @@ function store(state, emitter) {
         .replace(new RegExp(`${state.route}$`), '')
         .replace('/catch', '/')
         .replace('/home', '/')
-      var url = `${urlbase}./assets/${dataset}.json.bz2`
+      var url = `${urlbase}./assets/data/${dataset}.json.bz2`
       fetch(url)
         .then(response => response.arrayBuffer())
         .then(rawdata => {

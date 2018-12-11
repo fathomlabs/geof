@@ -50,6 +50,7 @@ var loadingStyle = css`
 :host {
   display: flex;
   flex-direction: column;
+  flex: 0 1 auto;
   justify-content: center;
   align-items: center;
   background: white;
@@ -95,7 +96,7 @@ module.exports = class Map extends Component {
     this._createControls()
 
     return html`
-      <div class="w-100 h-100">
+      <div class="flex w-100 h-100" style="min-height: calc(100vh - 48px); width: 100vw;">
         ${this.loading}
         ${this.controls.render()}
       </div>
@@ -130,7 +131,7 @@ module.exports = class Map extends Component {
     // map.on('click', onMapClick);
 
     var icon = new L.Icon({
-      iconUrl: './assets/waterbody.svg',
+      iconUrl: './assets/svg/waterbody.svg',
       iconAnchor: [12, 36],
       tooltipAnchor: [0, -36],
       popupAnchor: [0, -36]
@@ -180,7 +181,7 @@ module.exports = class Map extends Component {
     }
 
     // create tooltip contents
-    var tooltip = html `<button>${wb.name.en}</button>`
+    var tooltip = html`<button>${wb.name.en}</button>`
     tooltip.onclick = select
 
     // specify tooltip options
@@ -220,6 +221,7 @@ module.exports = class Map extends Component {
     self._loadPoints().then(() => {
       Object.keys(self.points).forEach(wbid => {
         var wb = self.points[wbid]
+        wb.id = wbid
         self._addMarker(wb)
       })
       self.markers.addLayers(self.markerPrecache, {
@@ -231,7 +233,7 @@ module.exports = class Map extends Component {
   }
 
   _createLoading () {
-    var loading = html `
+    var loading = html`
     
     <div class="${loadingStyle}">
       <h3>loading map data</h3>
@@ -251,10 +253,15 @@ module.exports = class Map extends Component {
 
   _createControls () {
     this.controls = this.parent.state.cache(Popover, 'lakemap-controls-popover')
+    if (this.element && !this.controls.element) {
+      this.controls.hide()
+      this.element.appendChild(this.controls.render())
+    }
   }
 
   _showControls () {
     if (!this.selected) return
+    this._createControls()
     var self = this
     var confirm = button(self.parent.state, self.parent.emit, {
       label: 'yes',
@@ -263,6 +270,7 @@ module.exports = class Map extends Component {
         self.next({
           wb: self.selected
         })
+        self._dismissControls()
       }
     })
     var cancel = button(self.parent.state, self.parent.emit, {
@@ -282,6 +290,7 @@ module.exports = class Map extends Component {
   }
 
   _dismissControls () {
+    this.selected = null
     this.controls.hide()
   }
 
@@ -293,9 +302,9 @@ module.exports = class Map extends Component {
     this._createMap(el)
   }
 
-  unload () {
-    this.map.remove()
-    this.map = null
-    this.coords = [0, 0]
-  }
+  // unload () {
+  //   this.map.remove()
+  //   this.map = null
+  //   this.coords = [0, 0]
+  // }
 }

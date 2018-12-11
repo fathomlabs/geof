@@ -46,7 +46,7 @@ var responsiveOptions = [
 ]
 
 module.exports = function chart(state, emit, opts) {
-  var el = html `<div></div>`
+  var el = html`<div></div>`
   var plot = new Chartist['Bar'](el, defaultdata, defaultoptions, responsiveOptions)
   return el
 }

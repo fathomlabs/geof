@@ -14,11 +14,10 @@ module.exports = function component(state, emit, opts) {
     onclick: () => emit('pushState', './meal')
   })
 
-  return html `
+  return html`
   
   <div class="flex flex-column w-100">
     ${newcatch}
-    ${newmeal}
   </div>
   
   `

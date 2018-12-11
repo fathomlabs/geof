@@ -7,12 +7,11 @@ module.exports = function navbutton(state, emit, opts) {
   if (opts.svg) {
     var svgopts = Object.assign({
       backgroundColor: 'white',
-      width: '40px',
-      height: '40px'
+      size: '40px'
     }, opts.svg)
     icon = svg(state, emit, svgopts)
   }
-  var el = html `
+  var el = html`
   
   <button class="${state.style.classes.navbutton} ${opts.classes}">${opts.label}${icon}</button>
   

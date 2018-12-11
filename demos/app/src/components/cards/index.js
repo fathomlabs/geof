@@ -1,4 +1,6 @@
 module.exports = {
+  recent: require('./recent'),
   overview: require('./overview'),
-  quick: require('./quick')
+  quick: require('./quick'),
+  meals: require('./meals')
 }

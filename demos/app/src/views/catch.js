@@ -10,11 +10,11 @@ var {
   button,
   Map,
   Fishpicker,
-  phoneify
+  phoneify,
+  size
 } = require('../components')
 
 var back = require('../components/phoneui/nav/back')
-
 var Stack = require('../components/stack/stack')
 
 var TITLE = 'src - main'
@@ -40,29 +40,42 @@ module.exports = view
 
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
-  var steps = [
-    next => state.cache(Map, 'my-map', {
+  var steps = {
+    wb: next => new Map('my-map', state, emit, {
       points: state.data.wb,
       next: next
     }).render(),
-    next => state.cache(Fishpicker, 'my-fishpicker', {
+    sp: next => new Fishpicker('my-fishpicker', state, emit, {
       next: next
-    }).render()
+    }).render(),
+    size: next => size(state, emit, {
+      next: next
+    })
+  }
 
-  ]
-  var stack = state.cache(Stack, 'my-stack', steps, {}).render()
+  if (state.catches.adding) {
+    Object.keys(steps).forEach(key => {
+      if (state.catches.adding.hasOwnProperty(key)) {
+        delete steps[key]
+      }
+    })
+  }
+
+  var stack = state.cache(Stack, 'my-stack', Object.values(steps).reverse(), {
+    onnext: data => emit('catches:adding:update', data),
+    ondone: () => emit('catches:adding:done')
+  }).render()
   
   var content = html`
   
   <div class="flex flex-column">
-    ${statusbar(`bg-${state.styleOpts.primary}`)}
     ${navigation(state, emit, {
       classes: `bg-${state.styleOpts.primary}`,
       left: back(state, emit),
       middle: 'New catch',
       right: null
     })}
-    <div class="" style="display: block; position: absolute; left: 0; top: 92px; bottom: 0; right: 0;">
+    <div class="flex w-100 h-100" style="flex-grow: 1; position: relative;">
       ${stack}
     </div>
   </div>
@@ -70,19 +83,4 @@ function view (state, emit) {
   `
 
   return phoneify(content)
-}
-
-function recentlocations (state, emit) {
-  return state.catches.recentlocations ? html`
-  
-  <div class="flex flex-column" style="flex-grow: 0;">
-    <h3>Recent locations:</h3>
-    <div class="flex flex-column">
-      <div>one</div>
-      <div>two</div>
-      <div>three</div>
-    </div>
-  </div>  
-  
-  ` : null
 }
