@@ -1,6 +1,7 @@
 var html = require('choo/html')
 var svg = require('../utils/svg')
 var button = require('../button')
+// var getscale = require('../../lib/advisoryscale')
 
 module.exports = function component(state, emit, opts) {
   return html`
@@ -38,38 +39,60 @@ function initialText (state) {
 
 function recentCatches (state, emit) {
   if (state.catches.log.length === 0) return null
+
+  // var scale = getscale()
+
+  function recentCatch (state, emit, entry) {
+    // var geticon = level => {
+    //   console.log(scale.pointcolour(adv.level).toString())
+    //   return svg(state, emit, {
+    //     name: 'exclamation',
+    //     backgroundColor: scale.pointcolour(adv.level).toString(),
+    //     size: '30px'
+    //   })
+    // }
+
+    // var icon = null
+
+    // var maybeicon = adv => {
+    //   var usersensitive = state.user.pregnant || !(state.user.over16)
+    //   var advsensitive = adv.pop === 2
+    //   if (usersensitive === advsensitive) {
+    //     icon = geticon(adv.level)
+    //   }
+    //   console.log(adv, icon)
+    // }
+
+    // var adv = entry.adv || state.data.adv[`${entry.wb.id}:${entry.sp.id}:${entry.size.id}`]
+    // if (adv) {
+    //   adv.forEach(maybeicon)
+    // }
+
+    var el = html`
+    
+    <div class="pv2 f5 bt bb b--white-60 bg-animate hover-bg-white pointer">
+      <div class="flex flex-row mv1">
+        ${entry.size.text} ${entry.sp.name.en} at ${entry.wb.name.en}
+      </div>
+    </div>
+    
+    `
+
+    el.onclick = e => {
+      console.log('clicked', entry)
+    }
+
+    return el
+  }
+
   var list = state.catches.log.reverse().slice(0, 5).map(entry => recentCatch(state, emit, entry))
+      // <!-- <div class="w-100 h1">${scale.legend.el}</div> -->
+      // <!-- <div class="pa3 tc i">click a catch to add it again or...</div> -->
   return html`
   
-  <div>
+  <div class="pb3">
     ${list}
-    <div class="pa3 tc i">click a catch to add it again or...</div>
   </div>
   
   `
-}
-
-function recentCatch (state, emit, entry) {
-  function cellIcon (name) {
-    return svg(state, emit, {
-      name: name,
-      backgroundColor: '#555',
-      size: '30px'
-    })
-  }
-  var el = html`
-  
-  <div class="pv2 f5 bt bb b--white-60 bg-animate hover-bg-white pointer">
-    <div class="flex justify-center mv1">
-      ${entry.size.text} ${entry.sp.name.en} at ${entry.wb.name.en}
-    </div>
-  </div>
-  
-  `
-
-  el.onclick = e => {
-    console.log('clicked', entry)
-  }
-
-  return el
 }

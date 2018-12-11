@@ -50,11 +50,12 @@ module.exports = class FishPicker extends Component {
         inner,
         [{
           name: '',
-          items: Object.values(self.state.data.spp).map((f, i) => {
+          items: Object.keys(self.state.data.spp).map(k => {
+            var f = self.state.data.spp[k]
             var entry = {
               name: f.name.en,
               value: Object.assign({
-                id: i
+                id: k
               }, f),
               keywords: Object.values(f.name).join(' ').split(' ')
             }

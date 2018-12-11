@@ -61,7 +61,7 @@ function view (state, emit) {
     })
   }
 
-  var stack = state.cache(Stack, 'my-stack', Object.values(steps).reverse(), {
+  var stack = state.cache(Stack, 'my-stack', Object.values(steps), {
     onnext: data => emit('catches:adding:update', data),
     ondone: () => emit('catches:adding:done')
   }).render()

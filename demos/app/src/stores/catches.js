@@ -6,41 +6,51 @@ var steps = [
 
 var init = [
   {
-    "wb": {
-      "name": {
-        "en": "Attawapiskat River",
-        "fr": "Rivière Attawapiskat"
-      },
-      "loc": {
-        "lat": 52.9186,
-        "lon": -82.4203
-      },
+    "size": {
+      "id": 35,
+      "text": "35-40cm"
     },
     "sp": {
-      "name": { en: "Bowfin" }
+      "id": 5,
+      "name": {
+        "en": "Coho Salmon",
+        "fr": "Saumon coho"
+      }
     },
-    size: {
-      id: 35,
-      text: "35-40cm"
+    "wb": {
+      "name": {
+        "en": "Sowden Lake",
+        "fr": "Lac Sowden"
+      },
+      "loc": {
+        "lat": 49.5492,
+        "lon": -91.1975
+      },
+      "id": "49329111"
     }
   },
   {
     "wb": {
       "name": {
-        "en": "Albany River",
-        "fr": "Rivière Albany"
+        "en": "Winisk River",
+        "fr": "Rivière Winisk"
       },
       "loc": {
-        "lat": 52.2256,
-        "lon": -81.6714
+        "lat": 55.2681,
+        "lon": -85.1169
       },
+      "id": "55178505"
     },
     "sp": {
-      "name": { en: "Rainbow Trout" }
+      "id": "80",
+      "name": {
+        "en": "Brook Trout",
+        "fr": "Truite mouchetée"
+      }
     },
-    size: {
-      id: 35,
-      text: "35-40cm"
+    "size": {
+      "id": 40,
+      "text": "40-45cm"
     }
   }
 ]
@@ -62,9 +72,18 @@ module.exports = function(state, emitter) {
   }
 
   var done = () => {
-    var adding = state.catches.adding
-    if (!adding) return
-    state.catches.log.push(adding)
+    var c = state.catches.adding
+    if (!c) return
+    emitter.emit('allowance:update')
+    var key = `${c.wb}:${c.sp}:${c.size}`
+
+    // check if this catch has advisories
+    var adv = state.data.adv[key]
+    c.key = key
+    c.adv = adv
+
+    // log it and cleanup
+    state.catches.log.push(c)
     state.catches.adding = null
   }
 

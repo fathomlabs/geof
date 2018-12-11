@@ -60,7 +60,7 @@ module.exports = function chart(state, emit, opts) {
           offsetY: 10,
           offsetX: -2
         }, { //Item 2
-          content: `<h3 class="tc">${state.allowance.percent}% of<br><span class="small">safe meals</br>eaten</span></h3>`
+          content: `<h4 class="tc">${Math.round(state.allowance.percent)}% of<br><span class="small">safe<br>allowance<br>used</span></h3>`
         }]
       })
     ]

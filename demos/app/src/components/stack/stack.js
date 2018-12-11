@@ -42,11 +42,14 @@ module.exports = class Stack extends Component {
       return leaf
     })
 
-    return html`
-      <div class="flex w-100 h-100 ${this.opts.classes || ''}" style="position: relative;">
-        ${this.leaves.map(leaf => leaf.render())}
-      </div>
+    var el = html`
+
+    <div class="flex w-100 h-100 ${this.opts.classes || ''}">
+      ${this.leaves.map(leaf => leaf.render())}
+    </div>
+
     `
+    return el
   }
 
   update (opts) {

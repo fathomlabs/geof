@@ -1,5 +1,5 @@
 var html = require('choo/html')
-var { phoneify, statusbar, startup } = require('../components')
+var { phoneify, startup } = require('../components')
 
 var TITLE = 'GEOF'
 

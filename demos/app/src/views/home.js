@@ -11,6 +11,7 @@ var {
   chart,
   phoneify
 } = require('../components')
+var loading = require('../components/utils/loading')
 
 var {
   recent,
@@ -28,16 +29,27 @@ module.exports = view
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
-  var sections = [
-    {
-      title: 'Overview',
-      content: meals(state, emit)
-    },
-    {
-      title: 'Recent catches',
-      content: recent(state, emit)
-    }
-  ]
+  var inner
+
+  if (state.dataloaded) {
+    var sections = [{
+        title: 'Overview',
+        content: meals(state, emit)
+      },
+      {
+        title: 'Recent catches',
+        content: recent(state, emit)
+      }
+    ]
+
+    inner = sections.map(entry => section(state, emit, entry))
+  } else {
+    inner = html`
+    
+    <div class="flex w-100 h-100 justify-center items-center">${loading()}</div>
+
+    `
+  }
 
   var content = html`
   
@@ -52,7 +64,7 @@ function view (state, emit) {
     <div class="flex" style="flex: 1; min-height: 0px;">
       <div class="flex overflow-auto" style="flex: 1;">
         <div class="w-100" style="min-height: -webkit-min-content;">
-          ${sections.map(entry => section(state, emit, entry))}
+          ${inner}
         </div>
       </div>
     </div>

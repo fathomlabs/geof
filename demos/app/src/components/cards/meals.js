@@ -3,15 +3,15 @@ var svg = require('../utils/svg')
 
 module.exports = function meals(state, emit, opts) {
   var text
-  var perc = state.allowance.percent
+  var perc = Math.round(state.allowance.percent)
   if (perc < 51) {
     text = html`<span class="">plenty of meals left this month</span>`
   } else if (perc < 80) {
-    text = html`<span class="orange">you've had over half your monthly fish allowance</span>`
+    text = html`<span class="orange">you've had over half your safe monthly allowance</span>`
   } else if (perc < 100) {
     text = html`<span class="red">you're close to the safety limit</span>`
   } else if (perc >= 100) {
-    text = html`<span class="red">WARNING!<br>you're over the safe limit for fish consumption</span>`
+    text = html`<span class="red">WARNING!<br>you're over the safe limit for consumption</span>`
   }
 
   return html`

@@ -15,9 +15,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(require('./stores/app'))
 app.use(require('./stores/user'))
+app.use(require('./stores/allowance'))
 app.use(require('./stores/fishdata'))
 app.use(require('./stores/catches'))
-app.use(require('./stores/allowance'))
 app.use(require('./stores/styles'))
 app.use(require('./stores/clicks'))
 
