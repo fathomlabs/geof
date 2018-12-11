@@ -1,8 +1,8 @@
 {
-  "name": "src",
-  "short_name": "src",
+  "name": "geof",
+  "short_name": "geof",
   "description": "Guide to Eating Ontario Fish",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#000",
   "theme_color": "#000",
