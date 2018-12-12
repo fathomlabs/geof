@@ -44,7 +44,7 @@ module.exports = class Stack extends Component {
 
     var el = html`
 
-    <div class="flex w-100 h-100 ${this.opts.classes || ''}">
+    <div class="w-100 h-100 ${this.opts.classes || ''}" style="position: absolute; top: 0; left: 0;">
       ${this.leaves.map(leaf => leaf.render())}
     </div>
 
@@ -53,10 +53,12 @@ module.exports = class Stack extends Component {
   }
 
   update (opts) {
+    console.log('stack.update')
     return false
   }
 
   beforerender (el) {
+    console.log('stack.beforerender')
     // maybe do something first
   }
 
@@ -65,9 +67,10 @@ module.exports = class Stack extends Component {
   }
 
   unload () {
+    console.log('stack.unload')
     // maybe do something when it's unloaded from the DOM
     // this.element = null
-    this._reset()
+    this._restack()
   }
 
   _restack () {
@@ -78,11 +81,12 @@ module.exports = class Stack extends Component {
   }
 
   _allStepsDone () {
+    console.log('stack.allStepsDone')
     if (this.opts.ondone) {
       this.opts.ondone()
     }
     this._restack()
     this._reset()
-    this.emit('pushState', '#home')
+    this.emit('pushState', '/home')
   }
 }

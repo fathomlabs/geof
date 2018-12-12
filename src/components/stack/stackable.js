@@ -115,7 +115,7 @@ module.exports = class Stackable extends Component {
     this.localStyle = {}
     if (this.opts.start === 'hideRight') this.hideRight()
     else if (this.opts.start === 'hideLeft') this.hideLeft()
-    if (this.opts.index) this._setZIndex(2000 + this.opts.index)
+    if (this.opts.hasOwnProperty('index')) this._setZIndex(2000 + this.opts.index)
     this._setTransitions('all', '0.5s', 'easeInOutSine')
   }
 }

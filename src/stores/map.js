@@ -9,6 +9,6 @@ function store (state, emitter) {
 
   emitter.on('DOMContentLoaded', function () {
     state.map.show = true
-    emitter.emit('render')
+    emitter.emit('navigator:render')
   })
 }

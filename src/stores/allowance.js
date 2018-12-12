@@ -29,7 +29,7 @@ module.exports = function (state, emitter) {
         }
       })
     })
-    if (state.route !== '/') emitter.emit('render')
+    if (state.route !== '/') emitter.emit('navigator:render')
   }
 
   emitter.on('DOMContentLoaded', function () {

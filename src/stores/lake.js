@@ -32,7 +32,7 @@ function store(state, emitter) {
 
     emitter.on('lake:select', lake => {
       state.lakes.selected = Object.assign({}, lake)
-      emitter.emit('render')
+      emitter.emit('navigator:render')
     })
   })
 }

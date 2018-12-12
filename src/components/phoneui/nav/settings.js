@@ -7,7 +7,7 @@ module.exports = function settings(state, emit) {
       name: 'settings'
     },
     onclick: e => {
-      emit('pushState', '#settings')
+      emit('pushState', '/settings')
     }
   })
 }

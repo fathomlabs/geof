@@ -21,7 +21,6 @@ module.exports = view
 
 function view(state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
-  setTimeout(() => emit('navigator:splash'), 2000)
 
   var content = html`
   

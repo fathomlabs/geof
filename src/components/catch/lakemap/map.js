@@ -9,9 +9,11 @@ var button = require('../../button')
 var Popover = require('../../utils/popover')
 
 var css = require('sheetify')
-// css('leaflet/dist/leaflet.css')
+
+css('leaflet/dist/leaflet.css')
 css('leaflet.markercluster/dist/MarkerCluster.css')
 css('leaflet.markercluster/dist/MarkerCluster.Default.css')
+
 var tooltipStyle = css`
 
 :host {
@@ -96,7 +98,7 @@ module.exports = class Map extends Component {
     this._createControls()
 
     return html`
-      <div class="flex w-100 h-100" style="min-height: calc(100vh - 48px); width: 100vw;">
+      <div style="position: relative; min-height: 100%; width: 100vw;">
         ${this.loading}
         ${this.controls.render()}
       </div>
@@ -301,10 +303,4 @@ module.exports = class Map extends Component {
   beforerender (el) {
     this._createMap(el)
   }
-
-  // unload () {
-  //   this.map.remove()
-  //   this.map = null
-  //   this.coords = [0, 0]
-  // }
 }

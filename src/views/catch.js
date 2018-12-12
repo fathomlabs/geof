@@ -75,7 +75,7 @@ function view (state, emit) {
       middle: 'New catch',
       right: null
     })}
-    <div class="flex w-100 h-100" style="flex-grow: 1; position: relative;">
+    <div class="" style="position: absolute; top: 48px; left: 0; bottom: 0; right: 0;">
       ${stack}
     </div>
   </div>

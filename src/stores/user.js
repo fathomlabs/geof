@@ -7,7 +7,7 @@ module.exports = (state, emitter) => {
     emitter.on('user:setup', data => {
       Object.assign(state.user, data)
       state.user.setupDone = true
-      emitter.emit('pushState', '#home')
+      emitter.emit('pushState', '/home')
     })
   })
 }

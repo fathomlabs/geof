@@ -13,13 +13,7 @@ var iosStatus = html`
 function phone (content) {
   return html`
     <body class="roboto fw4 mid-gray" style="height: 100vh; background: black;">
-      <div class="flex items-center justify-center w-100 h-100">
-        <div style="position: relative; width: 100%; height: 100%; background: white;">
-          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; border: 1px #333 solid" class="sans-serif">
-            ${content}
-          </div>
-        </div>
-      </div>
+      ${content}
     </body>
   `
 }
