@@ -1,7 +1,6 @@
 var Component = require('choo/component')
 var html = require('choo/html')
-var L = require('leaflet')
-if (typeof window !== 'undefined') window.L = L
+if (typeof L === 'undefined') L = global.L = require('leaflet')
 require('leaflet.markercluster')
 var nanologger = require('nanologger')
 var onIdle = require('on-idle')
@@ -10,7 +9,7 @@ var button = require('../../button')
 var Popover = require('../../utils/popover')
 
 var css = require('sheetify')
-css('leaflet/dist/leaflet.css')
+// css('leaflet/dist/leaflet.css')
 css('leaflet.markercluster/dist/MarkerCluster.css')
 css('leaflet.markercluster/dist/MarkerCluster.Default.css')
 var tooltipStyle = css`
