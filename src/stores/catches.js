@@ -68,7 +68,7 @@ module.exports = function(state, emitter) {
 
   var cancel = () => {
     state.catches.adding = null
-    emitter.emit(state.events.PUSHSTATE, './')
+    emitter.emit(state.events.PUSHSTATE, '#home')
   }
 
   var done = () => {

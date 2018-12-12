@@ -19,7 +19,7 @@ function store(state, emitter) {
     if (total === done) {
       state.dataloaded = true
       emitter.emit('fishdata:all:loaded')
-      if (state.route === '/home') emitter.emit('render')
+      if (state.route === '#home') emitter.emit('render')
     }
   }
 
@@ -28,9 +28,7 @@ function store(state, emitter) {
       var fetchone = dataset => {
         var urlbase = window.location.href
           .replace(new RegExp(`${state.route}$`), '')
-          .replace('/catch', '/')
-          .replace('/home', '/')
-        var url = `${urlbase}/./assets/data/${dataset}.json.bz2`.replace('//./', '/')
+        var url = `${urlbase}/assets/data/${dataset}.json.bz2`.replace('/#/', '/')
         console.log(url)
         fetch(url)
           .then(response => response.arrayBuffer())

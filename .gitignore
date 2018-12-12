@@ -109,3 +109,4 @@ Temporary Items
 
 .expo/*
 package-lock.json
+./src/dist

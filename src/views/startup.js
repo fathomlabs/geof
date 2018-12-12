@@ -8,7 +8,7 @@ module.exports = view
 function view(state, emit) {
   console.log(state.user.setupDone)
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
-  if (state.user.setupDone) return emit('pushState', './home')
+  if (state.user.setupDone) return emit('pushState', '#home')
 
   var content = html`
   

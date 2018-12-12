@@ -83,6 +83,6 @@ module.exports = class Stack extends Component {
     }
     this._restack()
     this._reset()
-    this.emit('pushState', '/home')
+    this.emit('pushState', '#home')
   }
 }

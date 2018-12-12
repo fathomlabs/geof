@@ -8,7 +8,7 @@ module.exports = function settings(state, emit) {
     },
     onclick: e => {
       emit('catches:adding:cancel')
-      emit('pushState', '/home')
+      emit('pushState', '#home')
     }
   })
 }
