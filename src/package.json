@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rm -rf ../live/* && bankai build index.js ../live --base https://geof.app",
+    "build": "rm -rf ./dist && bankai build index.js ./dist --base https://geof.app",
     "create": "choo-scaffold",
+    "deploy": "npm run build && echo 'geof.app' > ./dist/CNAME && gh-pages -d dist",
     "inspect": "bankai inspect index.js",
     "start": "bankai start --debug index.js",
     "test": "standard && npm run test-deps",
@@ -41,6 +42,7 @@
     "choo-devtools": "^2.5.1",
     "choo-scaffold": "^1.2.0",
     "dependency-check": "^3.2.1",
+    "gh-pages": "^2.0.1",
     "standard": "^12.0.1"
   }
 }
