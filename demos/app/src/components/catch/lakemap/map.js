@@ -1,6 +1,6 @@
 var Component = require('choo/component')
 var html = require('choo/html')
-if (typeof L === 'undefined') L = global.L = require('leaflet')
+var L = require('leaflet')
 require('leaflet.markercluster')
 var nanologger = require('nanologger')
 var onIdle = require('on-idle')
