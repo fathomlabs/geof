@@ -12,7 +12,7 @@ var iosStatus = html`
 
 function phone (content) {
   return html`
-    <body class="roboto fw4 mid-gray" style="height: 100vh; background: black;">
+    <body class="avenir fw4 mid-gray" style="height: 100vh; background: black;">
       ${content}
     </body>
   `

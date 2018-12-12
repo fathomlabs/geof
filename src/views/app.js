@@ -2,9 +2,9 @@ var html = require('choo/html')
 
 // components
 var {,
-  navigation,
+  Navigation,
+  RouteController
 } = require('../components')
-var loading = require('../components/utils/loading')
 
 var TITLE = 'GEOF'
 
@@ -15,34 +15,12 @@ function view(state, emit) {
 
   var inner
 
-  if (state.dataloaded) {
-    var sections = [{
-        title: 'Overview',
-        content: meals(state, emit)
-      },
-      {
-        title: 'Recent catches',
-        content: recent(state, emit)
-      }
-    ]
-
-    inner = sections.map(entry => section(state, emit, entry))
-  } else {
-    inner = html `
-    
-    <div class="flex w-100 h-100 justify-center items-center">${loading()}</div>
-
-    `
-  }
-
-  var content = html `
+  return html`
   
   <body class="roboto fw4 mid-gray" style="height: 100vh; background: black;">
     ${state.cache(Navigation, 'persistent-nav')}
-    ${state.cache(RouteController, 'route-controller')}
+    ${state.cache(RouteController, 'route-controller', { style: { top: '48px;' }})}
   </body>
   
   `
-
-  return phoneify(content)
 }
