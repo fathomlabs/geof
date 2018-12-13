@@ -58,7 +58,7 @@ module.exports = class Home extends View {
 
     var content = html`
     
-    <div class="${this.state.style.classes.main} flex flex-column w-100 h-100 justify-around items-center">
+    <div class="${this.state.style.classes.main} flex flex-column w-100 h-100 items-center" style="justify-content: space-evenly;">
       ${inner}
     </div>
     

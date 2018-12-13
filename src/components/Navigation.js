@@ -45,12 +45,12 @@ module.exports = class Navbar extends Component {
   _rightPart (opts) {
     var key = opts.right
     if (!key) return null
-    if (key === 'back') return settings(this.state, this.emit)
+    if (key === 'settings') return settings(this.state, this.emit)
   }
 
   update (opts) {
-    if (opts.needsupdate) {
-      emit('navigation:updated')
+    if (opts.needsUpdate) {
+      this.emit('navbar:updated')
       return true
     }
     return false

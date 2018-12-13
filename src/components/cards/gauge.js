@@ -7,6 +7,18 @@ var style = css('chartist')
 
 var containerstyle = css`
 
+:host g {
+  transform: translate(50%, 50%) rotate(180deg);
+}
+
+:host text {
+  display: none;
+}
+
+:host svg {
+  overflow: visible;
+}
+
 :host .ct-series-a .ct-slice-donut {
   stroke: #FF725C;
   stroke-width: 10px !important;
@@ -17,6 +29,10 @@ var containerstyle = css`
   stroke: #19A974;
   stroke-width: 10px !important;
   stroke-linecap: round;
+}
+
+:host .ct-fill-donut-label {
+  width: 100%;
 }
 
 `
@@ -45,53 +61,47 @@ module.exports = function chart(state, emit, opts) {
   }
   var opts = {
     donut: true,
-    donutWidth: 20,
+    donutWidth: 150,
     startAngle: 210,
     total: 120,
-    showLabel: false,
-    labelOffset: 50,
-    labelDirection: 'explode',
-    showLabel: false,
     plugins: [
       Chartist.plugins.fillDonut({
-        items: [{ //Item 1
-          content: '<i class="fa fa-tachometer text-muted"></i>',
-          position: 'bottom',
+        items: [{
+          position: 'center',
           offsetY: 10,
-          offsetX: -2
-        }, { //Item 2
+          offsetX: -4,
           content: `<h4 class="tc">${Math.round(state.allowance.percent)}% of<br><span class="small">safe<br>allowance<br>used</span></h3>`
         }]
       })
     ]
   }
-  var el = html`<div class="flex flex-column w-100 ${style} ${containerstyle}"></div>`
+  var el = html`<div class="flex justify-center items-center tc ${style} ${containerstyle}"></div>`
   var plot = new Chartist.Pie(el, data, opts)
 
-  plot.on('draw', function (data) {
-    if (data.type === 'slice' && data.index == 0) {
-      var pathLength = data.element._node.getTotalLength()
+  // plot.on('draw', function (data) {
+  //   if (data.type === 'slice' && data.index == 0) {
+  //     var pathLength = data.element._node.getTotalLength()
 
-      data.element.attr({
-        'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
-      })
+  //     data.element.attr({
+  //       'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+  //     })
 
-      var animationDefinition = {
-        'stroke-dashoffset': {
-          id: 'anim' + data.index,
-          dur: 1200,
-          from: -pathLength + 'px',
-          to: '0px',
-          easing: Chartist.Svg.Easing.easeOutQuint,
-          fill: 'freeze'
-        }
-      }
-      data.element.attr({
-        'stroke-dashoffset': -pathLength + 'px'
-      })
-      data.element.animate(animationDefinition, true)
-    }
-  })
+  //     var animationDefinition = {
+  //       'stroke-dashoffset': {
+  //         id: 'anim' + data.index,
+  //         dur: 1200,
+  //         from: -pathLength + 'px',
+  //         to: '0px',
+  //         easing: Chartist.Svg.Easing.easeOutQuint,
+  //         fill: 'freeze'
+  //       }
+  //     }
+  //     data.element.attr({
+  //       'stroke-dashoffset': -pathLength + 'px'
+  //     })
+  //     data.element.animate(animationDefinition, true)
+  //   }
+  // })
 
   return el
 }
