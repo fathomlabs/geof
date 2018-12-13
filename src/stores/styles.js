@@ -41,6 +41,8 @@ function styles (state, emitter) {
     state.style = {
       classes: {
         main: `${main}`,
+        stackable: `${main}`,
+        view: `${main}`,
         section: `flex flex-column mv2 pa4 br0 bbgray hover-mid-gray ${section}`,
         title: `roboto fw4 f4 tl mv1`,
         footer: `flex h4 w-100 absolute bottom-0 bg-${opts.primary}`,

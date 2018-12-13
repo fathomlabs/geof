@@ -19,7 +19,7 @@ function store(state, emitter) {
     if (total === done) {
       state.dataloaded = true
       emitter.emit('fishdata:all:loaded')
-      if (state.route === '#home') emitter.emit('navigator:render')
+      if (state.route === 'home') emitter.emit('navigator:render')
     }
   }
 

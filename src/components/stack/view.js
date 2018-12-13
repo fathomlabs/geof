@@ -2,7 +2,7 @@ var Component = require('choo/component')
 var html = require('choo/html')
 var css = require('sheetify')
 
-var style = css `
+var style = css`
 
 :host {
   display: flex;
@@ -11,7 +11,6 @@ var style = css `
   top: 0;
   width: 100%;
   height: 100%;
-  background: white;
 }
 
 `
@@ -27,10 +26,10 @@ module.exports = class Stackable extends Component {
     this._setup()
   }
 
-  createElement() {
-    var el = html `
+  createElement () {
+    var el = html`
     
-    <div class="${style}">
+    <div class="${style} ${this.state.style.classes.view}">
       ${this.child}
     </div>
 
@@ -39,19 +38,19 @@ module.exports = class Stackable extends Component {
     return el
   }
 
-  update() {
+  update () {
     this._applyLocalStyle()
     return false
   }
 
-  _applyLocalStyle(_el) {
+  _applyLocalStyle (_el) {
     var el = _el || this.element
     if (el) {
       Object.assign(el.style, this.localStyle)
     }
   }
 
-  _updateStyle(key, value) {
+  _updateStyle (key, value) {
     var el = this.element
     if (el) {
       el.style[key] = value
@@ -60,12 +59,12 @@ module.exports = class Stackable extends Component {
     this.localStyle[key] = value
   }
 
-  _handleLoad(el) {
+  _handleLoad (el) {
     super._handleLoad(el)
     this._applyLocalStyle()
   }
 
-  _setTransitions(property, duration, easing, delay) {
+  _setTransitions (property, duration, easing, delay) {
     var self = this
     var prefixes = [
       '-webkit-',
@@ -93,34 +92,43 @@ module.exports = class Stackable extends Component {
     Object.keys(map).forEach(setStyle)
   }
 
-  _setZIndex(value) {
+  _setZIndex (value) {
     this._updateStyle('z-index', value)
   }
 
-  _setLeft(value) {
+  _setLeft (value) {
     this._updateStyle('left', value)
   }
 
-  show() {
+  show () {
     this._updateStyle('display', 'flex')
     this._setLeft(0)
     this._applyLocalStyle()
   }
 
-  hideLeft() {
+  hideLeft () {
     this._setLeft('-100%')
   }
 
-  hideRight() {
+  hideRight () {
     this._setLeft('100%')
   }
 
-  hide() {
+  hide () {
     this._updateStyle('display', 'none')
+    this.hideRight()
     this._applyLocalStyle()
   }
 
-  _setup() {
+  moveToBottom () {
+    this._setZIndex(0)
+  }
+
+  moveToTop () {
+    this._setZIndex(100)
+  }
+
+  _setup () {
     this.localStyle = {}
     if (this.opts.start === 'hideRight') this.hideRight()
     else if (this.opts.start === 'hideLeft') this.hideLeft()

@@ -52,6 +52,10 @@ function store(state, emitter) {
 
   var goto = () => {
     var route = state.params.route || state.params.wildcard
+
+    // update state route record
+    state.route = route
+
     // update navbar state
     var newnav = navstates[route]
     if (!newnav) throw new Error('there is no navbar state for the route: ' + route)
@@ -59,6 +63,8 @@ function store(state, emitter) {
 
     // update render blocking
     state.navigator.blocked = routeisblocked(route)
+
+    render()
   }
   
   emitter.on('DOMContentLoaded', function () {

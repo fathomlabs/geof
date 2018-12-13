@@ -11,7 +11,6 @@ var style = css`
   top: 0;
   width: 100%;
   height: 100%;
-  background: white;
 }
 
 `
@@ -30,7 +29,7 @@ module.exports = class Stackable extends Component {
   createElement () {
     var el = html`
     
-    <div class="${style}">
+    <div class="flex justify-center items-center ${style} ${this.state.style.classes.stackable}">
       ${this.child}
     </div>
 

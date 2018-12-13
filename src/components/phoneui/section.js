@@ -16,7 +16,7 @@ function section (state, emit, opts) {
 
   return html`
 
-  <div class="${styles.section}">
+  <div class="${styles.section}" style="width: 100%; height: fit-content;">
     ${opts.content}
   </div>
 

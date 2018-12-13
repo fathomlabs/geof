@@ -22,11 +22,9 @@ module.exports = class RouteController extends Component {
     })
   }
 
-  _hideAllViews () {
-    Object.values(views).forEach(view => view.hide())
-  }
-
   _pickView () {
+    var previousView = this.currentView
+
     if (!this.state.user.setupDone) {
       this.currentRoute = 'startup'
     } else {
@@ -42,18 +40,21 @@ module.exports = class RouteController extends Component {
         view.moveToTop()
       } else {
         view.moveToBottom()
+        view.hide()
       }
     })
 
     this.currentView.show()
   }
 
-  createElement (opts) {
-    console.log('RouteController.createElement')
+  _updateCascade () {
+    Object.values(this.views).forEach(view => view.render())
+  }
 
+  createElement (opts) {
     return html`
 
-    <div class="flex ma0 pa0 items-center ${opts.classes || ''}" style="position: fixed; left: 0; top: 48px; right: 0; bottom: 0;">
+    <div class="flex ma0 pa0 items-center ${this.state.style.classes.main} ${opts.classes || ''}" style="position: fixed; left: 0; top: 48px; right: 0; bottom: 0;">
       ${Object.values(this.views).map(view => view.render())}
     </div>
 
@@ -62,12 +63,14 @@ module.exports = class RouteController extends Component {
 
   update (opts) {
     var route = this.state.params.route || this.state.params.wildcard
-    if (route !== this.currentRoute) this._pickView()
+    if (route !== this.currentRoute) {
+      this._pickView()
+      this._updateCascade()
+    }
     return false
   }
 
   beforerender (el) {
-    console.log('RouteController.beforerender')
     this._pickView()
     // maybe do something first
   }
@@ -77,7 +80,6 @@ module.exports = class RouteController extends Component {
   }
 
   unload () {
-    console.log('RouteController.unload')
     // maybe do something when it's unloaded from the DOM
     // this.element = null
     this._reRouteController()
