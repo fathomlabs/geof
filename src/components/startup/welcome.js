@@ -6,10 +6,12 @@ module.exports = function component(state, emit, opts) {
   var inner = html`
   
   <div>
-    <h2>This app helps you and your family stay healthy when eating fish caught in Ontario</h2>
-    <p>Toxic chemicals can be present in small concentrations in some lakes, rives and other water bodies. Fishing living in the water can build up high concentrations of these chemicals in their bodies.</p>
-    <p>Eating a lot of fish that have high concentrations of toxins can cause health problems over time. The best way to eat wild-caught fish and stay healthy is to make sure you fish in the cleanest water and catch the fish that are least likely to contain toxins.</p>
-    <p>This app helps you eat fish safely. Every time you catch a fish, record the catch in the app. The app uses data from the Ministry of the Environment, Conservation and Parks to track the toxins in the fish you catch. Then it tells you how much more fish you can safely eat each month, and recommends which of your favourite fishing spots and fish are the healthiest.</p>
+    <h2>Hello and welcome to the GEOF app!</h2>
+    <h4>The app that helps you and your family stay healthy when eating fish caught in Ontario.</h4>
+    <p>You see, toxic chemicals can be present in our air and waters. Unfortunately, the chemicals in our lakes and rivers can get into the fish that live there.</p>
+    <p>Over time, if we eat a lot of fish with toxins in them, it can be harmful to our health.</p>
+    <p>GEOF helps you monitor this. The app uses data from the Ministry of the Environment, Conservation and Parks to track the toxins in the fish you catch. Then it tells you how much more fish you can safely eat each month, and recommends which of your favourite fishing spots and fish are the healthiest.</p>
+    <p>Let's get started. Happy fishing!</p>
     ${button(state, emit, { classes: 'w-100', label: 'Get started', onclick: opts.next })}
   </div>
   
