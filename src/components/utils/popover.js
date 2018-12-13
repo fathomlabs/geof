@@ -9,8 +9,6 @@ var baseStyle = css`
 :host {
   border-top: 1px solid #ddd;
   background: white;
-  padding: 0 20px;
-  padding-bottom: 20px;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -53,6 +51,8 @@ module.exports = class Popover extends Component {
 
   show (opts) {
     Object.assign(this.opts, opts)
+    this.opts.style.padding = '0 20px'
+    this.opts.style.paddingBottom = '20px'
     this.opts.style.display = 'block'
     this.opts.style.height = 'auto !important'
     if (this.element) this.rerender()
@@ -60,6 +60,8 @@ module.exports = class Popover extends Component {
 
   hide () {
     // TODO: make this less messy
+    this.opts.style.padding = 0
+    this.opts.style.paddingBottom = 0
     this.opts.style.display = 'none'
     this.opts.style.height = 0
     if (this.element) this.rerender()

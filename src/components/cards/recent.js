@@ -26,7 +26,7 @@ function addnew (state, emit) {
   var newcatch = button(state, emit, {
     classes: "w-100 mv1",
     label: 'add a new catch',
-    onclick: () => emit('pushState', '/catch')
+    onclick: () => emit('pushState', '/newcatch')
   })
   return newcatch
 }

@@ -10,13 +10,14 @@ var blockedroutes = [
 var navstates = {
   startup: { left: null, middle: 'G.E.O.F', right: null },
   home: { left: null, middle: 'G.E.O.F', right: 'settings' },
-  catch: { left: 'back', middle: 'Add a catch', right: 'null' },
-  settings: { left: 'back', middle: 'Settings', right: 'null' }
+  newcatch: { left: 'back', middle: 'Add a catch', right: null },
+  settings: { left: 'back', middle: 'Settings', right: null }
 }
 
 function store(state, emitter) {
   state.navigator = {
-    blocked: false
+    blocked: false,
+    needsupdate: {}
   }
 
   state.navigation = {
@@ -24,6 +25,11 @@ function store(state, emitter) {
     left: null,
     middle: 'G.E.O.F',
     right: null
+  }
+
+  var setneedsupdate = (name, value) => {
+    console.log('view', name, value ? 'does' : 'does not', 'need update')
+    state.navigator.needsupdate[name] = value
   }
 
   var routeisblocked = route => {
@@ -76,6 +82,7 @@ function store(state, emitter) {
     emitter.on('navigator:splash', splash)
     emitter.on('navigator:block', block)
     emitter.on('navigator:unblock', unblock)
+    emitter.on('navigator:setneedsupdate', setneedsupdate)
     emitter.on('navbar:updated', navbarupdated)
     emitter.on('navigate', goto)
   })

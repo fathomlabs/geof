@@ -25,7 +25,7 @@ module.exports = class FishPicker extends Component {
     var self = this
     var el = html`
     
-    <div class="" style="position: relative; min-height: calc(100vh - 48px); width: 100vw;">
+    <div class="" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: white;">
       ${this.controls.render()}
     </div>
     

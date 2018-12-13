@@ -5,7 +5,7 @@ module.exports = function component(state, emit, opts) {
   var newcatch = button(state, emit, {
     classes: "w-100 mv1",
     label: 'Record a catch',
-    onclick: () => emit('pushState', '/catch')
+    onclick: () => emit('pushState', '/newcatch')
   })
 
   var newmeal = button(state, emit, {

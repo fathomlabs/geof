@@ -23,9 +23,6 @@ app.use(require('./stores/catches'))
 
 app.route('/', require('./views/app'))
 app.route('/:route', require('./views/app'))
-// app.route('/home', require('./views/home'))
-// app.route('/settings', require('./views/settings'))
-// app.route('/catch', require('./views/catch'))
 app.route('/*', require('./views/app'))
 
 module.exports = app.mount('body')

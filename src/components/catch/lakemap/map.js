@@ -98,7 +98,7 @@ module.exports = class Map extends Component {
     this._createControls()
 
     return html`
-      <div style="position: relative; min-height: 100%; width: 100vw;">
+      <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
         ${this.loading}
         ${this.controls.render()}
       </div>
@@ -114,7 +114,8 @@ module.exports = class Map extends Component {
       maxBounds: bounds,
       attributionControl: false,
       zoomSnap: 0.5,
-      zoomDelta: 0.5
+      zoomDelta: 0.5,
+      trackResize: true
     }).setView(this.location, this.zoom)
     this.map = map
 
@@ -229,7 +230,7 @@ module.exports = class Map extends Component {
       self.markers.addLayers(self.markerPrecache, {
         chunkedLoading: true
       })
-      self.map.invalidateSize(true)
+      // self.map.invalidateSize(true)
       setTimeout(() => self._dismissLoading(), 300)
     })
   }
@@ -251,6 +252,7 @@ module.exports = class Map extends Component {
     setTimeout(() => {
       this.loading.remove()
     }, 1050)
+    this._adjustMapSize()
   }
 
   _createControls () {
@@ -294,6 +296,17 @@ module.exports = class Map extends Component {
   _dismissControls () {
     this.selected = null
     this.controls.hide()
+  }
+
+  _adjustMapSize () {
+    var size = this.map.getSize()
+    if (size.x === 0 || size.y === 0) {
+      this.map.invalidateSize(true)
+      setTimeout(() => this._adjustMapSize(), 200)
+    } 
+  }
+
+  load () {
   }
 
   update () {

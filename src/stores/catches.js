@@ -85,6 +85,9 @@ module.exports = function(state, emitter) {
     // log it and cleanup
     state.catches.log.push(c)
     state.catches.adding = null
+
+    // tell navigator about update
+    emitter.emit('navigator:setneedsupdate', 'home', true)
   }
 
   emitter.on('DOMContentLoaded', function () {
