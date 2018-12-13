@@ -13,17 +13,8 @@ module.exports = function component(state, emit, opts) {
   
   `
 
-  var wrapper = section(state, emit, {
+  return section(state, emit, {
     title: 'Welcome to GEOF',
     content: inner
   })
-
-  var outer = html`
-
-  <div class="w-100 h-100 flex flex-column bg-gray" style="min-height: -webkit-min-content; align-content: center; justify-content: center;">
-    ${wrapper}
-  </div>
-  
-  `
-  return outer
 }

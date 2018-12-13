@@ -1,7 +1,8 @@
 module.exports = {
   phoneify: require('./phoneui/phoneify'),
   section: require('./phoneui/section'),
-  navigation: require('./phoneui/navigation'),
+  Navigation: require('./Navigation'),
+  RouteController: require('./RouteController'),
   navbutton: require('./phoneui/navbutton'),
   tab: require('./phoneui/tab'),
   footer: require('./phoneui/footer'),

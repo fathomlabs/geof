@@ -25,6 +25,7 @@
     "choo-persist": "^3.0.2",
     "choo-service-worker": "^2.4.0",
     "cssesc": "^2.0.0",
+    "deep-equal": "^1.0.1",
     "escape-html": "^1.0.3",
     "hyphenate-style-name": "^1.0.2",
     "isomorphic-fetch": "^2.2.1",

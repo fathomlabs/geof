@@ -1,91 +1,85 @@
 var html = require('choo/html')
 var Component = require('choo/component')
 
+var views = require('../views')
+
 module.exports = class RouteController extends Component {
-  constructor(id, state, emit, children, opts) {
+  constructor(id, state, emit, opts) {
     super(id, state, emit)
-    if (!children) throw new Error('RouteController requires children to be passed')
     this.id = id
     this.state = state
     this.emit = emit
-    this.children = children
     this.opts = opts || {}
+    this._createViews()
   }
 
-  _nextCallback(i) {
-    var self = this
-    return (data) => {
-      if (self.opts.onnext) {
-        self.opts.onnext(data)
-      }
-      // self.leaves[i].hide()
-      var nextleaf = self.leaves[i + 1]
-      if (nextleaf) {
-        nextleaf.show()
-      } else {
-        self._allStepsDone()
-      }
+  _createViews () {
+    this.views = []
+    Object.keys(views).forEach(name => {
+      var View = views[name]
+      var view = this.state.cache(View, `rc-${name}-view`)
+      this.views[name.toLowerCase()] = view
+    })
+  }
+
+  _hideAllViews () {
+    Object.values(views).forEach(view => view.hide())
+  }
+
+  _pickView () {
+    if (!this.state.user.setupDone) {
+      this.currentRoute = 'startup'
+    } else {
+      var route = this.state.params.route || this.state.params.wildcard
+      this.currentRoute = route
     }
-  }
 
-  createElement() {
-    var self = this
-    this.leaves = this.children.map((childfn, i) => {
-      var opts = {
-        child: childfn(this._nextCallback(i)),
-        start: (i > 0) ? 'hideRight' : null,
-        index: i
+    this.currentView = this.views[this.currentRoute]
+
+    Object.keys(this.views).forEach(name => {
+      var view = this.views[name]
+      if (name == this.currentRoute) {
+        view.moveToTop()
+      } else {
+        view.moveToBottom()
       }
-      var id = `${self.id}-leaf-${i}`
-      var leaf = self.state.cache(RouteControllerable, id, opts)
-      return leaf
     })
 
-    var el = html `
+    this.currentView.show()
+  }
 
-    <div class="w-100 h-100 ${this.opts.classes || ''}" style="position: absolute; top: 0; left: 0;">
-      ${this.leaves.map(leaf => leaf.render())}
+  createElement (opts) {
+    console.log('RouteController.createElement')
+
+    return html`
+
+    <div class="flex ma0 pa0 items-center ${opts.classes || ''}" style="position: fixed; left: 0; top: 48px; right: 0; bottom: 0;">
+      ${Object.values(this.views).map(view => view.render())}
     </div>
 
     `
-    return el
   }
 
-  update(opts) {
-    console.log('RouteController.update')
+  update (opts) {
+    var route = this.state.params.route || this.state.params.wildcard
+    if (route !== this.currentRoute) this._pickView()
     return false
   }
 
-  beforerender(el) {
+  beforerender (el) {
     console.log('RouteController.beforerender')
+    this._pickView()
     // maybe do something first
   }
 
-  load() {
+  load () {
     // maybe do something when the component is put into the dom
   }
 
-  unload() {
+  unload () {
     console.log('RouteController.unload')
     // maybe do something when it's unloaded from the DOM
     // this.element = null
     this._reRouteController()
-  }
-
-  _reRouteController() {
-    this.leaves.forEach(leaf => {
-      leaf.hideRight()
-    })
-    this.leaves[0].show()
-  }
-
-  _allStepsDone() {
-    console.log('RouteController.allStepsDone')
-    if (this.opts.ondone) {
-      this.opts.ondone()
-    }
-    this._reRouteController()
-    this._reset()
-    this.emit('pushState', '/home')
   }
 }

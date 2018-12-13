@@ -44,7 +44,7 @@ var questions = [{
 module.exports = function setup(state, emit) {
   var parts = questions.map(q => question(state, emit, q))
   var submit = button(state, emit, {
-    classes: 'w-100',
+    classes: 'w-100 mb2',
     label: 'Save',
     onclick: () => {}
   })
@@ -83,17 +83,8 @@ module.exports = function setup(state, emit) {
 
   `
 
-  var wrapper = section(state, emit, {
+  return section(state, emit, {
     title: 'Setup',
     content: inner
   })
-
-  var outer = html`
-
-  <div class="w-100 h-100 flex flex-column bg-gray" style="min-height: -webkit-min-content; align-content: center; justify-content: center;">
-    ${wrapper}
-  </div>
-  
-  `
-  return outer
 }
