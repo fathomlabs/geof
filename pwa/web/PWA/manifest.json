@@ -1,0 +1,18 @@
+{
+    "name": "geof",
+    "short_name": "geof",
+    "description": "Guide to Eating Ontario Fish",
+    "start_url": "https://geof.app/",
+    "display": "standalone",
+    "background_color": "none",
+    "theme_color": "#000",
+    "icons": [
+        {
+            "src": "/images/assets/icon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "lang": "",
+    "orientation": "portrait"
+}

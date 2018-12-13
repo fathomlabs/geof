@@ -1,0 +1,22 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-hostedwebapp": {
+            "PACKAGE_NAME": "app.geof"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "app.geof"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "app.geof"
+        }
+    }
+}
