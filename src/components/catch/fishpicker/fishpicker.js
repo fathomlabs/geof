@@ -115,10 +115,16 @@ module.exports = class FishPicker extends Component {
       classes: 'w-40',
       onclick: () => self._dismissControls()
     })
+
+    var name = this.selected.name.en
+    var initial = name.toLowerCase().slice(0, 1)
+    var vowels = ['a', 'e', 'i', 'o', 'u']
+    var preposition = 'a'
+    if (vowels.indexOf(initial) > -1) preposition = 'an'
     var controlcontent = html`
       
     <div class="flex flex-column f3" style="justify-content: center;">
-      <div><p class="pv1">Did you catch a ${this.selected.name.en}?</p></div>
+      <div><p class="pv1">Did you catch ${preposition} ${this.selected.name.en}?</p></div>
       <div class="flex flex-row" style="justify-content: space-evenly;">${confirm}${cancel}</div>
     </div>
 

@@ -68,6 +68,8 @@ function recentCatches (state, emit) {
     //   adv.forEach(maybeicon)
     // }
 
+    console.log(entry)
+
     var el = html`
     
     <div class="pv2 f5 bt bb b--white-60 bg-animate hover-bg-white pointer">
