@@ -1,30 +1,13 @@
-var html = require('choo/html')
-var {
-  phoneify,
-  navigation,
-  navbutton,
-  statusbar,
-  setup
-} = require('../components')
+var View = require('../components/stack/view')
 
-var TITLE = 'GEOF'
+var setup = require('../components/startup/setup')
 
-module.exports = view
+var loading = require('../components/utils/loading')
 
-function view(state, emit) {
-  if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
-
-  var next = () => emit('pushState', '/home')
-
-  var content = html`
-  
-  <div class="mainwrapper flex flex-column" style="position: absolute; height: 100%;">
-    <div class="flex overflow-auto" style="flex: 1;">
-      ${setup(state, emit, { next })}
-    </div>
-  </div>
-  
-  `
-
-  return phoneify(content)
+module.exports = class Home extends View {
+  constructor(id, state, emit, opts) {
+    opts = opts || {}
+    opts.child = setup(state, emit)
+    super(id, state, emit, opts)
+  }
 }

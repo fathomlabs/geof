@@ -7,6 +7,10 @@ var style = css('chartist')
 
 var containerstyle = css`
 
+:host {
+  height: 180px;
+}
+
 :host g {
   transform: translate(50%, 50%) rotate(180deg);
 }

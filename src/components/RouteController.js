@@ -54,7 +54,7 @@ module.exports = class RouteController extends Component {
   createElement (opts) {
     return html`
 
-    <div class="flex ma0 pa0 items-center ${this.state.style.classes.main} ${opts.classes || ''}" style="position: fixed; left: 0; top: 48px; right: 0; bottom: 0;">
+    <div class="flex ma0 pa0 items-center ${this.state.style.classes.main} ${opts.classes || ''}" style="position: fixed; left: 0; top: 48px; right: 0; bottom: 0; overflow-y: scroll;">
       ${Object.values(this.views).map(view => view.render())}
     </div>
 
