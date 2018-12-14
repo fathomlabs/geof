@@ -30,7 +30,7 @@ module.exports = function sizepicker(state, emit, opts) {
 
   return html`
   
-  <div class="flex flex-column w-100 pa3 f4 gray bg-white">
+  <div class="flex flex-column w-100 pa3 f4 gray bg-white" style="min-height: min-content;">
     ${sizes.map(option)}
   </div>
 

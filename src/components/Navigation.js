@@ -26,9 +26,9 @@ module.exports = class Navbar extends Component {
   }
 
   _generateParts (opts) {
-    var left = html`<div class="w-30 f4 ph2">${this._leftPart(opts)}</div>`
-    var middle = html`<div class="w-40 f3 tc justify-center">${this._middlePart(opts)}</div>`
-    var right = html`<div class="w-30 f4 ph2 tr">${this._rightPart(opts)}</div>`
+    var left = html`<div class="w-20 f4 ph2">${this._leftPart(opts)}</div>`
+    var middle = html`<div class="w-60 f3 tc justify-center">${this._middlePart(opts)}</div>`
+    var right = html`<div class="w-20 f4 ph2 tr">${this._rightPart(opts)}</div>`
     return { left, middle, right }
   }
 

@@ -442,7 +442,7 @@ class SearchableInput extends EventEmitter {
   _templateSearchBox(searchedItems) {
     return `
 <div class="searchable-input-search-box ${this._getPositionClassNames().join(' ')}">
-  <div class="searchable-input-search-input-container">
+  <div class="searchable-input-search-input-container" style="position: sticky; top: 0;">
     <input type="text" placeholder="type a fish name" class="searchable-input-search-input pa3 ba1 br1 w-100" />
   </div>
   <div class="searchable-input-list-container">

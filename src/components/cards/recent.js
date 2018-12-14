@@ -10,7 +10,7 @@ module.exports = function component(state, emit, opts) {
     <div class="flex flex-row justify-center items-center pb3" style="justify-items: space-around;" style="color: #555;">
       <div class="flex flex-column w-50 justify-center items-center">
         ${svg(state, emit, { name: 'catch', backgroundColor: '#555' })}
-        <div class="flex f4">
+        <div class="flex f4 tc">
           ${initialText(state)}
         </div>
       </div>
@@ -67,8 +67,6 @@ function recentCatches (state, emit) {
     // if (adv) {
     //   adv.forEach(maybeicon)
     // }
-
-    console.log(entry)
 
     var el = html`
     
