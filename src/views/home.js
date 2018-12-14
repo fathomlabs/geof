@@ -52,8 +52,8 @@ module.exports = class Home extends View {
 
     var content = html`
     
-    <div class="${this.state.style.classes.main} flex flex-column w-100 h-100 items-center" style="overflow-y: scroll;">
-      <div class="flex flex-column" style="height: fit-content; justify-content: space-evenly;">${inner}</div>
+    <div class="${this.state.style.classes.main} flex flex-column w-100 h-100 items-center" style="flex: 1; overflow: auto;">
+      <div class="flex flex-column" style="min-height: fit-content; justify-content: flex-start;">${inner}</div>
     </div>
     
     `

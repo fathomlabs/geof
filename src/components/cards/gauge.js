@@ -72,7 +72,7 @@ module.exports = function chart(state, emit, opts) {
       Chartist.plugins.fillDonut({
         items: [{
           position: 'center',
-          offsetY: 10,
+          offsetY: 24,
           offsetX: -4,
           content: `<h4 class="tc">${Math.round(state.allowance.percent)}% of<br><span class="small">safe<br>allowance<br>used</span></h3>`
         }]
