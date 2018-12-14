@@ -1,5 +1,6 @@
 .searchable-input-container {
   display: block;
+  overflow-y: scroll;
 }
 
 .searchable-input-mask {
@@ -23,6 +24,7 @@
   margin: 0;
   box-sizing: border-box;
   position: relative;
+  min-height: min-content;
 }
 
 .searchable-input a,

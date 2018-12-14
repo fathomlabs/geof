@@ -44,7 +44,7 @@ module.exports = class Stack extends Component {
 
     var el = html`
 
-    <div class="flex w-100 h-100 items-center ${this.state.style.classes.main} ${this.opts.classes || ''}" style="position: absolute; top: 0; left: 0; justify-content: space-evenly;">
+    <div class="flex w-100 h-100 items-center ${this.state.style.classes.main} ${this.opts.classes || ''}" style="position: absolute; top: 0; left: 0; overflow: hidden; justify-content: space-evenly;">
       ${this.leaves.map(leaf => leaf.render())}
     </div>
 
