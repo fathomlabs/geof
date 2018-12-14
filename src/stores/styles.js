@@ -10,6 +10,7 @@ var main = css`
   background: -webkit-linear-gradient(-45deg, #a9e4f7 34%,#0fb4e7 59%);
   background: linear-gradient(135deg, #a9e4f7 34%,#0fb4e7 59%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9e4f7', endColorstr='#0fb4e7',GradientType=1 );
+  overflow-y: scroll;
 }
 
 `

@@ -29,7 +29,7 @@ module.exports = class Stackable extends Component {
   createElement () {
     var el = html`
     
-    <div class="flex justify-center items-center ${style} ${this.state.style.classes.stackable}">
+    <div class="flex justify-center items-stretch ${style} ${this.state.style.classes.stackable}">
       ${this.child}
     </div>
 
