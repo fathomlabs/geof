@@ -54,7 +54,7 @@ module.exports = function setup(state, emit) {
   <form class="measure center">
     ${parts.map(part => part.el)}
     ${submit}
-    <small><em>you can change this information at any time by clicking on settings</em></small>
+    <small><em>You can change this information at any time by clicking on Settings</em></small>
   </form>
   
   `
