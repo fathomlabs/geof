@@ -1,17 +1,16 @@
 require('isomorphic-fetch')
 var css = require('sheetify')
 var choo = require('choo')
-var persist = 
 
 css('tachyons')
 var app = choo()
 
-// if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   app.use(require('choo-devtools')())
-// } else {
-//   app.use(require('choo-service-worker')())
-//   app.use(require('choo-persist')())
-// }
+} else {
+  app.use(require('choo-service-worker')())
+  app.use(require('choo-persist')())
+}
 
 app.use(require('./stores/app'))
 app.use(require('./stores/user'))
