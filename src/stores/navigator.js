@@ -32,9 +32,9 @@ function store(state, emitter) {
     emitter.emit('pushState', next)
   }
 
-  var block = () => state.navigator.blocked = true
-  var unblock = () => state.navigator.blocked = false
-  
+  var block = () => (state.navigator.blocked = true)
+  var unblock = () => (state.navigator.blocked = false)
+
   emitter.on('DOMContentLoaded', function () {
     emitter.on('navigator:render', render)
     emitter.on('navigator:splash', splash)
