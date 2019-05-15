@@ -17,6 +17,9 @@ css('leaflet.markercluster/dist/MarkerCluster.Default.css')
 var tooltipStyle = css`
 
 :host {
+  padding: 0;
+  background-color: #222;
+  border: none;
   user-select: unset;
   pointer-events: unset;
 }

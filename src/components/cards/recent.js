@@ -8,9 +8,9 @@ module.exports = function component(state, emit, opts) {
   return html`
   
   <div class="flex flex-column w-100">
-    <div class="flex flex-row justify-center items-center pb3" style="justify-items: space-around;" style="color: #555;">
-      <div class="flex flex-column w-50 justify-center items-center">
-        ${svg(state, emit, { name: 'catch', backgroundColor: '#555' })}
+    <div class="flex flex-row justify-center items-center pb3 tc no-wrap" style="color: #f4f4f4;">
+      <div class="flex flex-column w-100 justify-center items-center">
+        ${svg(state, emit, { name: 'catch', backgroundColor: '#f4f4f4' })}
         <div class="flex f4">
           ${initialText(state)}
         </div>
