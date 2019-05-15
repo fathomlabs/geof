@@ -25,7 +25,12 @@ var tooltipStyle = css`
 }
 
 :host:hover {
-  background: #ccf2ff;
+  background: #333;
+}
+
+:host::before {
+  border-bottom-color: #222;
+  margin-left: -7px
 }
 
 `
