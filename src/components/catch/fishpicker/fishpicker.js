@@ -1,4 +1,4 @@
-var Component = require('choo/Component')
+var Component = require('choo/component')
 var html = require('choo/html')
 var input = require('../../form/input')
 var button = require('../../button')
