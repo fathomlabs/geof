@@ -1,5 +1,3 @@
-var html = require('choo/html')
-
 module.exports = store
 
 var blockedroutes = [

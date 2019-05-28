@@ -3,12 +3,14 @@ var question = require('../form/question')
 var button = require('../button')
 var section = require('../phoneui/section')
 
-var questions = [{
+var questions = [
+  {
     question: 'Age of the youngest person eating the fish you catch',
     field: {
       type: 'choose',
       name: 'over16',
-      choices: [{
+      choices: [
+        {
           label: 'Under 16 years',
           id: 'no',
           checked: false
@@ -26,7 +28,8 @@ var questions = [{
     field: {
       type: 'choose',
       name: 'pregnant',
-      choices: [{
+      choices: [
+        {
           label: 'Yes',
           id: 'yes',
           checked: false
@@ -73,7 +76,7 @@ module.exports = function setup(state, emit) {
 
   var inner = html`
 
-  <div class="">
+  <div class="dark-gray">
     <p class="mb0">
       Please tell us a little about the people who will be eating the fish you catch.
       This helps us give accurate, safe advice.
@@ -90,7 +93,7 @@ module.exports = function setup(state, emit) {
 
   var outer = html`
 
-  <div class="w-100 h-100 flex flex-column bg-gray" style="min-height: -webkit-min-content; align-content: center; justify-content: center;">
+  <div class="w-100 h-100 flex flex-column" style="min-height: -webkit-min-content; align-content: center; justify-content: center;">
     ${wrapper}
   </div>
   

@@ -1,10 +1,10 @@
-var html = require('choo/html')
 var navbutton = require('../navbutton')
 
-module.exports = function settings(state, emit) {
+module.exports = function (state, emit) {
   return navbutton(state, emit, {
     svg: {
-      name: 'settings'
+      name: 'settings',
+      backgroundColor: state.style.theme.primary
     },
     onclick: e => {
       emit('pushState', '/settings')

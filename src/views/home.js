@@ -4,11 +4,6 @@ var html = require('choo/html')
 var {
   section,
   navigation,
-  // footer,
-  button,
-  form,
-  setup,
-  chart,
   phoneify
 } = require('../components')
 var loading = require('../components/utils/loading')
@@ -32,7 +27,8 @@ function view (state, emit) {
   var inner
 
   if (state.dataloaded) {
-    var sections = [{
+    var sections = [
+      {
         title: 'Overview',
         content: meals(state, emit)
       },
@@ -51,16 +47,18 @@ function view (state, emit) {
     `
   }
 
+  var navopts = {
+    classes: `bg-${state.styleOpts.primary}`,
+    style: 'flex: 0 0 auto;',
+    left: null,
+    middle: state.appdata.title,
+    right: settings(state, emit)
+  }
+
   var content = html`
   
   <div class="${state.style.classes.main} flex flex-column w-100 h-100">
-    ${navigation(state, emit, {
-      classes: `bg-${state.styleOpts.primary}`,
-      style: 'flex: 0 0 auto;',
-      left: null,
-      middle: state.appdata.title,
-      right: settings(state, emit)
-    })}
+    ${navigation(state, emit, navopts)}
     <div class="flex" style="flex: 1; min-height: 0px;">
       <div class="flex overflow-auto" style="flex: 1;">
         <div class="w-100" style="min-height: -webkit-min-content;">

@@ -1,10 +1,10 @@
 {
   "name": "geof",
-  "short_name": "geof",
+  "short_name": "Giode to Earing Ontaria Fish",
   "description": "Guide to Eating Ontario Fish",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#000",
+  "background_color": "#7357ed",
   "theme_color": "#000",
   "icons": [{
     "src": "/assets/icon.png",

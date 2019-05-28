@@ -3,6 +3,19 @@ var css = require('sheetify')
 var choo = require('choo')
 
 css('tachyons')
+
+css`
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: none;
+}
+
+`
+
 var app = choo()
 
 if (process.env.NODE_ENV !== 'production') {

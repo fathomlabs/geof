@@ -11,6 +11,6 @@ var getStyle = opts => {
   })
 }
 
-module.exports = function svg(state, emit, opts) {
+module.exports = function (state, emit, opts) {
   return html`<div class="flex" style="${getStyle(opts)}"></div>`
 }

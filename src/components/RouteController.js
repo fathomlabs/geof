@@ -2,7 +2,7 @@ var html = require('choo/html')
 var Component = require('choo/component')
 
 module.exports = class RouteController extends Component {
-  constructor(id, state, emit, children, opts) {
+  constructor (id, state, emit, children, opts) {
     super(id, state, emit)
     if (!children) throw new Error('RouteController requires children to be passed')
     this.id = id
@@ -12,7 +12,7 @@ module.exports = class RouteController extends Component {
     this.opts = opts || {}
   }
 
-  _nextCallback(i) {
+  _nextCallback (i) {
     var self = this
     return (data) => {
       if (self.opts.onnext) {
@@ -28,7 +28,7 @@ module.exports = class RouteController extends Component {
     }
   }
 
-  createElement() {
+  createElement () {
     var self = this
     this.leaves = this.children.map((childfn, i) => {
       var opts = {
@@ -41,7 +41,7 @@ module.exports = class RouteController extends Component {
       return leaf
     })
 
-    var el = html `
+    var el = html`
 
     <div class="w-100 h-100 ${this.opts.classes || ''}" style="position: absolute; top: 0; left: 0;">
       ${this.leaves.map(leaf => leaf.render())}
@@ -51,35 +51,35 @@ module.exports = class RouteController extends Component {
     return el
   }
 
-  update(opts) {
+  update (opts) {
     console.log('RouteController.update')
     return false
   }
 
-  beforerender(el) {
+  beforerender (el) {
     console.log('RouteController.beforerender')
     // maybe do something first
   }
 
-  load() {
+  load () {
     // maybe do something when the component is put into the dom
   }
 
-  unload() {
+  unload () {
     console.log('RouteController.unload')
     // maybe do something when it's unloaded from the DOM
     // this.element = null
     this._reRouteController()
   }
 
-  _reRouteController() {
+  _reRouteController () {
     this.leaves.forEach(leaf => {
       leaf.hideRight()
     })
     this.leaves[0].show()
   }
 
-  _allStepsDone() {
+  _allStepsDone () {
     console.log('RouteController.allStepsDone')
     if (this.opts.ondone) {
       this.opts.ondone()

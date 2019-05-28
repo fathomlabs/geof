@@ -5,16 +5,19 @@ const css = require('sheetify')
 
 var style = css('chartist')
 
+var goodcolor = 'dd4035'
+var badcolor = '7edd35'
+
 var containerstyle = css`
 
 :host .ct-series-a .ct-slice-donut {
-  stroke: #FF725C;
+  stroke: #dd4035;
   stroke-width: 10px !important;
   stroke-linecap: round;
 }
 
 :host .ct-series-b .ct-slice-donut {
-  stroke: #19A974;
+  stroke: #7edd35;
   stroke-width: 10px !important;
   stroke-linecap: round;
 }
@@ -49,17 +52,14 @@ module.exports = function chart(state, emit, opts) {
     startAngle: 210,
     total: 120,
     showLabel: false,
-    labelOffset: 50,
-    labelDirection: 'explode',
-    showLabel: false,
     plugins: [
       Chartist.plugins.fillDonut({
-        items: [{ //Item 1
+        items: [{
           content: '<i class="fa fa-tachometer text-muted"></i>',
           position: 'bottom',
           offsetY: 10,
           offsetX: -2
-        }, { //Item 2
+        }, {
           content: `<h4 class="tc light-gray">${Math.round(state.allowance.percent)}% of<br><span class="small">safe<br>allowance<br>used</span></h3>`
         }]
       })
@@ -69,7 +69,7 @@ module.exports = function chart(state, emit, opts) {
   var plot = new Chartist.Pie(el, data, opts)
 
   plot.on('draw', function (data) {
-    if (data.type === 'slice' && data.index == 0) {
+    if (data.type === 'slice' && data.index === 0) {
       var pathLength = data.element._node.getTotalLength()
 
       data.element.attr({

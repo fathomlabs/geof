@@ -38,6 +38,7 @@ var tooltipStyle = css`
 var controlsStyle = css`
 
 :host {
+  margin-top: -48px;
   background: white;
   height: 0;
   padding: 0 20px;
@@ -52,6 +53,20 @@ var controlsStyle = css`
   transition: height 0.5s;  
 }
 
+`
+
+// buttonStyle
+
+css`
+
+.leaflet-tooltip button {
+  color: white;
+	outline: currentcolor none medium;
+	background: #333;
+	border: 0;
+	padding: 6px;
+	border-radius: 2px;
+}
 
 `
 
@@ -292,7 +307,7 @@ module.exports = class Map extends Component {
     
     <div class="flex flex-column f3" style="justify-content: center;">
       <div><p class="pv1">Did you fish at ${this.selected.name.en}?</p></div>
-      <div class="flex flex-row" style="justify-content: space-evenly;">${confirm}${cancel}</div>
+      <div class="flex flex-row" style="justify-content: space-evenly; margin-bottom: 20px;">${confirm}${cancel}</div>
     </div>
 
     `

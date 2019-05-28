@@ -3,7 +3,6 @@ var svg = require('../utils/svg')
 var button = require('../button')
 // var getscale = require('../../lib/advisoryscale')
 
-
 module.exports = function component(state, emit, opts) {
   return html`
   
@@ -25,7 +24,7 @@ module.exports = function component(state, emit, opts) {
 
 function addnew (state, emit) {
   var newcatch = button(state, emit, {
-    classes: "w-100 mv1",
+    classes: 'w-100 mv1',
     label: 'Add a new catch',
     onclick: () => emit('pushState', '/catch')
   })
@@ -34,8 +33,8 @@ function addnew (state, emit) {
 
 function initialText (state) {
   return state.catches.log.length > 0
-  ? `${state.catches.log.length} recent catches`
-  : 'No catches recorded yet'
+    ? `${state.catches.log.length} recent catches`
+    : 'No catches recorded yet'
 }
 
 function recentCatches (state, emit) {
@@ -69,33 +68,32 @@ function recentCatches (state, emit) {
     //   adv.forEach(maybeicon)
     // }
 
-    var plusButton = html`<button>+</button>`
+    var plusButton = html`<button class="pv0 w-20 ph2 h2 br2 b--none bg-blue hover-white white link dim">Repeat</button>`
     plusButton.onclick = e => {
       console.log('add fish again', e)
       state.catches.log.push(entry)
       emit('render')
     }
-    
-    var removeButton = html`<button class="removeButton pv2">-</button>`
+
+    var removeButton = html`<button class="pv0 w-20 ph2 h2 br2 b--none bg-blue hover-white white">Delete</button>`
     removeButton.onclick = e => {
       console.log('remove fish', e)
-      e.target.value 
-      e.target.index
       state.catches.log.pop(entry)
       emit('render')
     }
 
     var el = html`
     
-    <div class="pv2 f5 bt bb b--white-60 bg-animate hover-bg-white pointer">
-      <div class="flex flex-row mv1">
-        ${entry.size.text} ${entry.sp.name.en} at ${entry.wb.name.en}  ${removeButton}  ${plusButton}  
+    <div class="pv2 f5 bt bb b--white-60 bg-animate hover-bg-light-blue pointer hide-child relative">
+      <div class="flex flex-row mv1 relative">
+        ${entry.size.text} ${entry.sp.name.en} at ${entry.wb.name.en}  
+      </div>
+      <div class="flex flex-row justify-around items-center child absolute absolute--fill bg-light-blue">
+        ${removeButton}  ${plusButton}  
       </div>
     </div>
     
     `
-
-
 
     el.onclick = e => {
       console.log('clicked', entry)
@@ -105,8 +103,8 @@ function recentCatches (state, emit) {
   }
 
   var list = state.catches.log.reverse().slice(0, 5).map(entry => recentCatch(state, emit, entry))
-      // <!-- <div class="w-100 h1">${scale.legend.el}</div> -->
-      // <!-- <div class="pa3 tc i">click a catch to add it again or...</div> -->
+  // <!-- <div class="w-100 h1">${scale.legend.el}</div> -->
+  // <!-- <div class="pa3 tc i">click a catch to add it again or...</div> -->
   return html`
   
   <div class="pb3">

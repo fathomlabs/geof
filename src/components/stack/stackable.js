@@ -12,6 +12,7 @@ var style = css`
   width: 100vw;
   height: 100vh;
   background: white;
+  overflow: none;
 }
 
 `
@@ -54,7 +55,7 @@ module.exports = class Stackable extends Component {
     if (el) {
       el.style[key] = value
     }
-    
+
     this.localStyle[key] = value
   }
 

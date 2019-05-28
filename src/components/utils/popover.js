@@ -12,7 +12,7 @@ var baseStyle = css`
   padding: 0 20px;
   padding-bottom: 20px;
   position: absolute;
-  bottom: 0;
+  bottom: 28px;
   width: 100%;
   z-index: 1001;
   -webkit-transition: height 0.5s; 
@@ -26,7 +26,7 @@ var baseStyle = css`
 `
 
 module.exports = class Popover extends Component {
-  constructor(id, state, emit, opts) {
+  constructor (id, state, emit, opts) {
     super(id, state, emit, opts)
     this.opts = Object.assign({
       classes: [baseStyle],

@@ -17,7 +17,7 @@ function view(state, emit) {
 
   return html`
   
-  <body class="roboto fw4 mid-gray" style="height: 100vh; background: black;">
+  <body class="roboto fw4 mid-gray vh-100 bg-white">
     ${state.cache(Navigation, 'persistent-nav')}
     ${state.cache(RouteController, 'route-controller', { style: { top: '48px;' }})}
   </body>

@@ -1,9 +1,6 @@
 var html = require('choo/html')
 var {
   phoneify,
-  navigation,
-  navbutton,
-  statusbar,
   setup
 } = require('../components')
 
