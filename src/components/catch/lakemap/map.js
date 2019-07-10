@@ -179,12 +179,12 @@ module.exports = class Map extends Component {
     // bounds and location
     map.fitBounds(bounds)
     map.locate({
-      setView: false,
+      setView: true,
       timeout: 60000,
       maximumAge: 500000
     })
     map.on('locationfound', e => {
-      var radius = 20
+      var radius = e.accuracy
       L.marker(e.latlng).addTo(map)
       L.circle(e.latlng, radius).addTo(map)
     })

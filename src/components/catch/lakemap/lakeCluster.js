@@ -13,7 +13,7 @@ var icon = n => `
       <ellipse cx="16.551" cy="16.782" fill-opacity=".5" rx="12.847" ry="13.079"/>
       <ellipse cx="16.551" cy="16.782" fill-opacity=".517" rx="9.144" ry="9.375"/>
     </g>
-    <text fill="#000" font-family="RobotoSlab-Regular, Roboto Slab" font-size="12.458">
+    <text fill="#000" font-family="avenir next, avenir, sans-serif" font-size="12.458">
       <tspan x="16.503" y="39.694" text-anchor="middle">${n}</tspan>
     </text>
     <g fill-rule="nonzero">
