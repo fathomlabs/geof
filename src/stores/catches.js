@@ -4,58 +4,9 @@ var steps = [
   'size'
 ]
 
-var init = [
-  {
-    "size": {
-      "id": 35,
-      "text": "35-40cm"
-    },
-    "sp": {
-      "id": 5,
-      "name": {
-        "en": "Coho Salmon",
-        "fr": "Saumon coho"
-      }
-    },
-    "wb": {
-      "name": {
-        "en": "Sowden Lake",
-        "fr": "Lac Sowden"
-      },
-      "loc": {
-        "lat": 49.5492,
-        "lon": -91.1975
-      },
-      "id": "49329111"
-    }
-  },
-  {
-    "wb": {
-      "name": {
-        "en": "Winisk River",
-        "fr": "Rivière Winisk"
-      },
-      "loc": {
-        "lat": 55.2681,
-        "lon": -85.1169
-      },
-      "id": "55178505"
-    },
-    "sp": {
-      "id": "80",
-      "name": {
-        "en": "Brook Trout",
-        "fr": "Truite mouchetée"
-      }
-    },
-    "size": {
-      "id": 40,
-      "text": "40-45cm"
-    }
-  }
-]
+var init = []
 
-module.exports = function(state, emitter) {
+module.exports = function (state, emitter) {
   state.catches = {
     log: init,
     adding: null

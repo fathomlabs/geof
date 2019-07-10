@@ -5,7 +5,7 @@ var blockedroutes = [
   'catch'
 ]
 
-function store(state, emitter) {
+function store (state, emitter) {
   state.navigator = {
     blocked: false
   }
