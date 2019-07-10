@@ -68,14 +68,14 @@ function recentCatches (state, emit) {
     //   adv.forEach(maybeicon)
     // }
 
-    var plusButton = html`<button class="pv0 w-20 ph2 h2 br2 b--none bg-blue hover-white white link dim">Repeat</button>`
+    var plusButton = html`<button class="pv0 ph2 h2 br2 b--none bg-blue hover-white white link dim">Repeat</button>`
     plusButton.onclick = e => {
       console.log('add fish again', e)
       state.catches.log.push(entry)
       emit('render')
     }
 
-    var removeButton = html`<button class="pv0 w-20 ph2 h2 br2 b--none bg-blue hover-white white">Delete</button>`
+    var removeButton = html`<button class="pv0 ph2 h2 br2 b--none bg-blue hover-white white">Delete</button>`
     removeButton.onclick = e => {
       console.log('remove fish', e)
       state.catches.log.pop(entry)
