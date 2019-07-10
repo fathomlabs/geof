@@ -5,7 +5,7 @@ var TITLE = 'GEOF'
 
 module.exports = view
 
-function view(state, emit) {
+function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
   if (state.user.setupDone) return emit('replaceState', '/home')
 
