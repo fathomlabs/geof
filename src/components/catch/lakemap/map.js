@@ -14,6 +14,20 @@ css('leaflet/dist/leaflet.css')
 css('leaflet.markercluster/dist/MarkerCluster.css')
 css('leaflet.markercluster/dist/MarkerCluster.Default.css')
 
+var notificationStyle = css`
+
+:host {
+  font-family: avenir next, avenir, sans-serif;
+  z-index: 9999;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  margin: 20px;
+}
+
+`
+
 var tooltipStyle = css`
 
 :host {
@@ -176,14 +190,33 @@ module.exports = class Map extends Component {
     this.map.addLayer(this.markers)
     this.icon = icon
 
+    setTimeout(this._addMarkers.bind(this), 500)
+
+    this.created = true
+  }
+
+  _findLocation () {
+    var map = this.map
+
     // bounds and location
-    map.fitBounds(bounds)
+    map.fitBounds(this.bounds)
     map.locate({
-      setView: true,
+      setView: false,
       timeout: 60000,
       maximumAge: 500000
     })
     map.on('locationfound', e => {
+      // check if location is in bounds
+      if (!map.getBounds().contains(e.latlng)) {
+        console.log('location was outside ontario bounds')
+        this._showNotification('Your location is outside Ontario')
+        return
+      }
+
+      // set view
+      map.setView(e.latLng, 16)
+
+      // create circle
       var radius = e.accuracy
       L.marker(e.latlng).addTo(map)
       L.circle(e.latlng, radius).addTo(map)
@@ -192,10 +225,6 @@ module.exports = class Map extends Component {
 
     // controls
     L.control.scale().addTo(map)
-
-    setTimeout(this._addMarkers.bind(this), 500)
-
-    this.created = true
   }
 
   _addMarker (wb) {
@@ -284,6 +313,24 @@ module.exports = class Map extends Component {
     }
   }
 
+  _showNotification (text) {
+    var notification = html`
+
+    <div class="${notificationStyle} border-box br2 f5 bn pa3 tv light-gray bg-dark-gray link dim">
+      ${text}
+    </div>
+
+    `
+
+    notification.onclick = () => notification.remove()
+
+    this.element.appendChild(notification)
+
+    setTimeout(() => {
+      notification.remove()
+    }, 4000)
+  }
+
   _showControls () {
     if (!this.selected) return
     this._createControls()
@@ -325,5 +372,9 @@ module.exports = class Map extends Component {
 
   beforerender (el) {
     this._createMap(el)
+  }
+
+  load () {
+    this._findLocation()
   }
 }
