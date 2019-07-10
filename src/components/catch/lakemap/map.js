@@ -208,7 +208,6 @@ module.exports = class Map extends Component {
     map.on('locationfound', e => {
       // check if location is in bounds
       if (!map.getBounds().contains(e.latlng)) {
-        console.log('location was outside ontario bounds')
         this._showNotification('Your location is outside Ontario')
         return
       }
